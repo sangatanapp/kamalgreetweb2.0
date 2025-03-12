@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityWidget.dart';
 import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
@@ -244,7 +245,7 @@ class OtpPage extends StatelessWidget {
                       if (loginController.otp.value.text.isNotEmpty &&
                           loginController.otp.value.text.length >= 4) {
                         if (context.mounted) {
-                          loginController.submitOTP();
+                          loginController.submitOTP(context: context);
                         }
                       } else {
                         Get.showSnackbar(

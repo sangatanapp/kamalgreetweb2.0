@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ControllerBinding.dart';
 import 'package:kamal_greet_web_2/Utils/values/Language.dart';
 import 'package:kamal_greet_web_2/route/routerDelegate.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
-void main() {
+Future<void> main() async {
   usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   configLoading();
-
   runApp(const MyApp());
 }
 
@@ -44,13 +45,17 @@ void configLoading() {
     ..infoWidget = const Icon(Icons.info, color: Colors.blue, size: 40.0);
 }
 
+class NavigationService {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp.router(
+      debugShowCheckedModeBanner: false,
       translations: Languages(),
       initialBinding: ControllerBinding(),
       locale: const Locale('en', 'IN'),

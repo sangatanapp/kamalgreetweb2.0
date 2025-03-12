@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
 import '../../Utils/database/GreetStorage.dart';
 import '../../apicalling/ApiCallBaseOption.dart';
@@ -11,11 +13,6 @@ import '../data/model/LoginModel.dart';
 
 class LoginViewModel extends GetxController {
   final api = AuthApi(apiCallBaseOption());
-
-
-
-
-
 
   final phoneNumber = TextEditingController().obs;
   final otp = TextEditingController().obs;
@@ -44,7 +41,7 @@ class LoginViewModel extends GetxController {
     }
   }
 
-  Future submitOTP() async {
+  Future submitOTP({required BuildContext context}) async {
     isLoading.value = true;
     try {
       String token = GreetStorage.getUserIdentificationToken() ?? '';
@@ -73,7 +70,7 @@ class LoginViewModel extends GetxController {
           } else {
             if (model!.otp.toString() == otp.value.text) {
               Future.delayed(Duration.zero)
-                  .then((value) => Get.offAllNamed('/DashboardScreen'));
+                  .then((value) => context.go('/dashboard'));
             }
           }
         }
