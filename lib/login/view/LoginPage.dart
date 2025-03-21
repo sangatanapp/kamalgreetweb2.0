@@ -32,8 +32,10 @@ class _LoginPageState extends State<LoginPage> {
 
       return Scaffold(
           body: Obx(
-        () => connectivityController.connectionType == MConnectivityResult.wifi ||
-            connectivityController.connectionType == MConnectivityResult.mobile
+        () => connectivityController.connectionType ==
+                    MConnectivityResult.wifi ||
+                connectivityController.connectionType ==
+                    MConnectivityResult.mobile
             ? Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,

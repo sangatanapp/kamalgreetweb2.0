@@ -1,5 +1,6 @@
 import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
 import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
+import 'package:kamal_greet_web_2/guruvani/view/GuruvaniDashboard.dart';
 import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:kamal_greet_web_2/login/view/OtpPage.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +19,10 @@ GoRouter router = GoRouter(
     GoRoute(
       path: '/dashboard',
       builder: (context, state) => const DashboardScreen(),
+    ),
+    GoRoute(
+      path: '/guruvani/dashboard',
+      builder: (context, state) => const GuruvaniDashboard(),
     ),
   ],
   redirect: (context, state) {
