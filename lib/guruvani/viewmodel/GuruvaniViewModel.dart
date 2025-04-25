@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
+import 'package:kamal_greet_web_2/apicalling/ApiCallBaseOption.dart';
 import 'package:kamal_greet_web_2/guruvani/data/api/GuruvaniApi.dart';
 import 'package:kamal_greet_web_2/guruvani/data/model/GuruListModel.dart';
 import 'package:kamal_greet_web_2/guruvani/data/model/GuruvaniModel.dart';
@@ -12,11 +13,7 @@ import 'package:retrofit/retrofit.dart';
 import '../../Utils/database/GreetStorage.dart';
 
 class GuruvaniViewModel extends GetxController {
-  final api = GuruvaniApi(Dio(BaseOptions(
-    contentType: 'application/json',
-    validateStatus: ((status) => true),
-    receiveTimeout: const Duration(seconds: 30),
-  )));
+  final api = GuruvaniApi(apiCallBaseOption());
 
   RxBool isLoadingGuruImage = false.obs;
   RxString guruPhoto = ''.obs;

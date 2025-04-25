@@ -25,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    loginController.phoneNumber.value.text = "5000000000";
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       final isMobile = constraints.maxWidth < 800;

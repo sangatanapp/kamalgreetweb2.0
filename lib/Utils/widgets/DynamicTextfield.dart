@@ -25,6 +25,7 @@ class DynamicTextfield extends StatelessWidget {
   final bool? readOnly;
   final bool? enabled;
   final int? maxLines;
+  final int? minLines;
   final int? maxLength;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -54,6 +55,7 @@ class DynamicTextfield extends StatelessWidget {
     this.prefix,
     this.validator,
     this.autovalidateMode,
+    this.minLines,
   }) : super(key: key);
 
   @override
@@ -66,6 +68,7 @@ class DynamicTextfield extends StatelessWidget {
       maxLength: maxLength,
       validator: validator,
       onTap: onTap,
+      minLines: minLines,
       readOnly: readOnly ?? false,
       controller: controller,
       autovalidateMode: autovalidateMode,

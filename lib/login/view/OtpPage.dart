@@ -34,6 +34,9 @@ class OtpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    loginController.otp.value.text = "909192";
+
+
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final isMobile = constraints.maxWidth < 800;

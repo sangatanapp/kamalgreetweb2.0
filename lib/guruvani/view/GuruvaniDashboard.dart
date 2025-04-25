@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityWidget.dart';
 import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
@@ -51,9 +52,7 @@ class GuruvaniDashboard extends StatelessWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
-                                    height: 40,
-                                  ),
+                                  const SizedBox(height: 40),
                                   DynamicButton(
                                     leadingIcon: Icons.add,
                                     showLeading: true,
@@ -65,6 +64,17 @@ class GuruvaniDashboard extends StatelessWidget {
                                     height: isMobile ? 26 : 46,
                                     textSize: isMobile ? 8 : 16,
                                     onTap: () {},
+                                  ),
+                                  const SizedBox(height: 40),
+                                  DynamicButton(
+                                    backgroundColor: AppColors.yellowBg,
+                                    width: isMobile ? 80 : 140,
+                                    text: "View Guru",
+                                    textColor: AppColors.yellowText,
+                                    height: isMobile ? 26 : 36,
+                                    onTap: () {
+                                      context.go('/guruvani/dashboard/guru');
+                                    },
                                   ),
                                 ],
                               ),
