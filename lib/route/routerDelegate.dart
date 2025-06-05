@@ -1,3 +1,4 @@
+import 'package:kamal_greet_web_2/Payment/view/PaymentScreen.dart';
 import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
 import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/guruvani/view/GuruViewAndCreation.dart';
@@ -13,22 +14,15 @@ GoRouter router = GoRouter(
       path: '/',
       builder: (context, state) => const LoginPage(),
     ),
+    GoRoute(path: '/verifyOtp', builder: (context, state) => OtpPage()),
     GoRoute(
-      path: '/verifyOtp',
-      builder: (context, state) => OtpPage(),
-    ),
+        path: '/dashboard',
+        builder: (context, state) => const DashboardScreen()),
     GoRoute(
-      path: '/dashboard',
-      builder: (context, state) => const DashboardScreen(),
-    ),
+        path: '/guruvani/dashboard',
+        builder: (context, state) => const GuruvaniDashboard()),
     GoRoute(
-      path: '/guruvani/dashboard',
-      builder: (context, state) => const GuruvaniDashboard(),
-    ),
-    GoRoute(
-      path: '/guruvani/dashboard/guru',
-      builder: (context, state) => const GuruViewAndCreation(),
-    ),
+        path: '/payment', builder: (context, state) => const PaymentScreen()),
   ],
   redirect: (context, state) {
     final String? authToken = GreetStorage.getAuthToken();

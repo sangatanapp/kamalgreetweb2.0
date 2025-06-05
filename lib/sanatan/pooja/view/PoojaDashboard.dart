@@ -8,6 +8,7 @@ import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicTextfield.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
+import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:kamal_greet_web_2/sanatan/pooja/view/AddPoojaDetails.dart';
 import 'package:kamal_greet_web_2/sanatan/pooja/view/PoojaBookingList.dart';
 import 'package:kamal_greet_web_2/sanatan/pooja/viewmodel/PoojaDashboardViewModel.dart';
@@ -42,8 +43,8 @@ class _PoojaDashboardState extends State<PoojaDashboard> {
         builder: (BuildContext context, BoxConstraints constraints) {
       final isMobile = constraints.maxWidth < 800;
       return Obx(
-        () => controller.connectionType == MConnectivityResult.wifi ||
-                controller.connectionType == MConnectivityResult.mobile
+        () => connectivityController.connectionType == MConnectivityResult.wifi ||
+            connectivityController.connectionType == MConnectivityResult.mobile
             ? PopScope(
                 child: Scaffold(
                   appBar: AppBar(

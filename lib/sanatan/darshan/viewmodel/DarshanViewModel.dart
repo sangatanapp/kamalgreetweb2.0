@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import 'package:kamal_greet_web_2/apicalling/ApiCallBaseOption.dart';
 import 'package:kamal_greet_web_2/sanatan/darshan/data/api/DarshanApi.dart';
 import 'package:kamal_greet_web_2/sanatan/darshan/data/model/DarshanModel.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanCreationScreen.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DarshanViewModel extends GetxController {
   Rx<TextEditingController> darshanTitleCtrl = TextEditingController().obs;

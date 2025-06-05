@@ -10,6 +10,7 @@ import 'package:kamal_greet_web_2/Utils/values/AppConstants.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 
 import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
+import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:kamal_greet_web_2/sanatan/darshan/view/AddDarshanScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/darshan/viewmodel/DarshanViewModel.dart';
 import 'package:kamal_greet_web_2/sanatan/darshan/widgets/DarshanListWidget.dart';
@@ -48,7 +49,6 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final SubCategoryViewModel tagCtr = Get.find();
   Uint8List? selectedImage;
-  final controller = Get.put(ConnectivityController());
   double sidebarPadding = 15;
   double sideButtonsRadius = 100;
   double sideButtonsTextSize = 16;
@@ -67,8 +67,8 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
         builder: (BuildContext context, BoxConstraints constraints) {
       final isMobile = constraints.maxWidth < 800;
       return Obx(
-        () => controller.connectionType == MConnectivityResult.wifi ||
-                controller.connectionType == MConnectivityResult.mobile
+        () => connectivityController.connectionType == MConnectivityResult.wifi ||
+            connectivityController.connectionType == MConnectivityResult.mobile
             ? PopScope(
                 child: Scaffold(
                   appBar: AppBar(

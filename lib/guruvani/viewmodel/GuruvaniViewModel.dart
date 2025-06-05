@@ -14,7 +14,8 @@ import '../../Utils/database/GreetStorage.dart';
 
 class GuruvaniViewModel extends GetxController {
   final api = GuruvaniApi(apiCallBaseOption());
-
+  List<String> allGuruSuggestions = [];
+  RxList<String> selectedGuruName = <String>[].obs;
   RxBool isLoadingGuruImage = false.obs;
   RxString guruPhoto = ''.obs;
 
@@ -30,21 +31,21 @@ class GuruvaniViewModel extends GetxController {
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
   Future getGuruList() async {
-    // tagController.allGuruSuggestions.clear();
+    allGuruSuggestions.clear();
     try {
       final res =
           await api.getGuruList("Bearer ${GreetStorage.getAuthToken()!}");
       if (res.response.statusCode == 200) {
         GuruListModel model = GuruListModel.fromJson(res.data);
         guruList.value = model.data ?? [];
-        // for (int i = 0; i < guruList.length; i++) {
-        //   tagController.allGuruSuggestions.add(guruList[i].guruName ?? "");
-        // }
+        for (int i = 0; i < guruList.length; i++) {
+          allGuruSuggestions.add(guruList[i].guruName ?? "");
+        }
         guruList.refresh();
       } else if (res.response.statusCode == 401) {
         // Get.offAll(const LoginPage());
         // loginCtr.phoneNumber.value.clear();
-        // GreetStorage.cleanAllLocalStorage();
+        GreetStorage.cleanAllLocalStorage();
       } else {
         EasyLoading.showError(
             "${res.response.statusCode} ${res.response.statusMessage}");
@@ -156,5 +157,11 @@ class GuruvaniViewModel extends GetxController {
         print(e);
       }
     }
+  }
+
+
+  void addGuru(String name) {
+    selectedGuruName.add(name);
+    selectedGuruName.refresh();
   }
 }

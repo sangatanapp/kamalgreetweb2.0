@@ -7,12 +7,12 @@ import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicTextfield.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/PaddingGenerator.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
+import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
 import 'package:kamal_greet_web_2/sanatan/widgets/SanatanGodSelector.dart';
 import 'package:kamal_greet_web_2/sanatan/widgets/SanatanPostTypeSelector.dart';
 import '../../../Utils/internet/ConnectivityController.dart';
 
-final controller = Get.put(ConnectivityController());
 
 class AddWallpaperScreen extends StatefulWidget {
   final String? id;
@@ -36,8 +36,8 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
         builder: (BuildContext context, BoxConstraints constraints) {
       return Obx(
         () {
-          if (controller.connectionType == MConnectivityResult.wifi ||
-              controller.connectionType == MConnectivityResult.mobile) {
+          if (connectivityController.connectionType == MConnectivityResult.wifi ||
+              connectivityController.connectionType == MConnectivityResult.mobile) {
             return Scaffold(
                 backgroundColor: AppColors.creationScreenBackground,
                 body: Padding(

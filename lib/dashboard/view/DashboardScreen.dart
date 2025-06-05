@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/dashboard/widget/AppCardsWidget.dart';
+
+final connectivityCtrl = Get.put(ConnectivityController());
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -8,6 +13,17 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        actions: [
+          TextButton(
+              onPressed: () => context.go("/payment"),
+              child: Text(
+                "Payment",
+                style: GoogleFonts.poppins(fontWeight: FontWeight.w500,color: Colors.black),
+              ))
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

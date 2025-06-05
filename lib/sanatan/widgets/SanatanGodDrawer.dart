@@ -7,7 +7,8 @@ import 'package:kamal_greet_web_2/Utils/values/AppConstants.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicTextfield.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
-import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';t
+import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
+
 import 'package:shimmer/shimmer.dart';
 
 class SanatanGodDrawer extends StatefulWidget {

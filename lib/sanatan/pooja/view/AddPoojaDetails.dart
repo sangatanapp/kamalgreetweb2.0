@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityWidget.dart';
 import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
+import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:kamal_greet_web_2/sanatan/pooja/viewmodel/PoojaDetailsViewModel.dart';
 import 'package:kamal_greet_web_2/sanatan/pooja/widgets/PoojaBenefitsWidget.dart';
 import 'package:kamal_greet_web_2/sanatan/wallpaper/view/AddWallpaperScreen.dart';
@@ -34,8 +35,8 @@ class _AddPoojaDetailsState extends State<AddPoojaDetails> {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Obx(
-        () => controller.connectionType == MConnectivityResult.wifi ||
-                controller.connectionType == MConnectivityResult.mobile
+        () => connectivityController.connectionType == MConnectivityResult.wifi ||
+            connectivityController.connectionType == MConnectivityResult.mobile
             ? PopScope(
                 child: Scaffold(
                   appBar: AppBar(
