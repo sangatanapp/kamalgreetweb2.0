@@ -80,7 +80,8 @@ class GuruvaniPostData {
       this.sharedCount,
       this.downloadCount});
 
-  factory GuruvaniPostData.fromJson(Map<String, dynamic> json) => GuruvaniPostData(
+  factory GuruvaniPostData.fromJson(Map<String, dynamic> json) =>
+      GuruvaniPostData(
         id: json["id"],
         title: json["title"],
         sharingContent: json["sharing_content"],
@@ -89,11 +90,8 @@ class GuruvaniPostData {
         background: json["bg_url"],
         avatarUrl: json["avatar_url"],
         avatarPostion: json["avatar_postion"] ?? "",
-        // Provide a default value if null
         nameColor: json["name_color_code"] ?? "0xFF000000",
-        // Provide a default value if null
         avatarShape: json["avatar_shape"] ?? "",
-        // Provide a default value if null
         startDate: json["start_date"],
         endDate: json["end_date"],
         createdAt: json["created_at"],
@@ -103,7 +101,6 @@ class GuruvaniPostData {
         isSelectedForDeletion: json['is_selected_for_deletion'],
         isPinned: json['is_pinned'],
         postType: json["post_type"],
-        // Provide a default value if null
         tagList: json["tag_list"] == null
             ? []
             : List<int>.from(json["tag_list"]!.map((x) => x)),

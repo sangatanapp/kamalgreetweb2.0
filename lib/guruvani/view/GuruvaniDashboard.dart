@@ -6,12 +6,14 @@ import 'package:kamal_greet_web_2/Utils/internet/ConnectivityWidget.dart';
 import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
+import 'package:kamal_greet_web_2/guruvani/viewmodel/GuruViewmodel.dart';
 import 'package:kamal_greet_web_2/guruvani/viewmodel/GuruvaniViewModel.dart';
 import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 
 import '../../Utils/widgets/CardListMandatories.dart';
 
 final GuruvaniViewModel guruvaniCtrl = Get.put(GuruvaniViewModel());
+final GuruViewModel guruCtrl = Get.put(GuruViewModel());
 
 class GuruvaniDashboard extends StatelessWidget {
   const GuruvaniDashboard({super.key});

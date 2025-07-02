@@ -6,12 +6,13 @@ part of 'MantraApi.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _MantraApi implements MantraApi {
   _MantraApi(
     this._dio, {
     this.baseUrl,
+    this.errorLogger,
   }) {
     baseUrl ??= 'https://postkaro.app';
   }
@@ -19,6 +20,8 @@ class _MantraApi implements MantraApi {
   final Dio _dio;
 
   String? baseUrl;
+
+  final ParseErrorLogger? errorLogger;
 
   @override
   Future<HttpResponse<dynamic>> createMantra(
@@ -31,25 +34,25 @@ class _MantraApi implements MantraApi {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(data);
-    final _result =
-        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+    final _options = _setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/sanatanweb/v1/creatMantra',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
+        .compose(
+          _dio.options,
+          '/sanatanweb/v1/creatMantra',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }
 
@@ -60,25 +63,25 @@ class _MantraApi implements MantraApi {
     final _headers = <String, dynamic>{r'authorization': token};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+    final _options = _setStreamType<HttpResponse<dynamic>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/sanatanweb/v1/getMantra',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
+        .compose(
+          _dio.options,
+          '/sanatanweb/v1/getMantra',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }
 

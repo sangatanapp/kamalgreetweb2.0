@@ -6,9 +6,8 @@ import 'package:get/get.dart';
 import 'package:kamal_greet_web_2/Payment/data/api/PaymentApi.dart';
 import 'package:kamal_greet_web_2/Payment/data/model/PaymentModel.dart';
 import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
+import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-
-import '../../login/view/LoginPage.dart';
 
 class PaymentViewModel extends GetxController {
   final TextEditingController offerNameController = TextEditingController();
@@ -52,7 +51,9 @@ class PaymentViewModel extends GetxController {
         "Bearer ${GreetStorage.getAuthToken()!}",
         {
           "is_recurringpayment_byphonepe": groupValue.value == 1 ? true : false,
-          "is_recurringpayment_byrazorpay": groupValue.value == 0 ? true : false
+          "is_recurringpayment_byrazorpay":
+              groupValue.value == 0 ? true : false,
+          "appName": whichAppSelected.value
         },
         "hi");
     try {
@@ -60,7 +61,7 @@ class PaymentViewModel extends GetxController {
         EasyLoading.showSuccess("Payment method successfully updated!");
       } else if (res.response.statusCode == 401) {
         Get.offAll(const LoginPage());
-        // loginCtr.phoneNumber.value.clear();
+        loginController.phoneNumber.value.clear();
         GreetStorage.cleanAllLocalStorage();
       } else {
         EasyLoading.showError(
@@ -74,7 +75,8 @@ class PaymentViewModel extends GetxController {
   }
 
   Future getPayment() async {
-    final res = await api.getPayment("Bearer ${GreetStorage.getAuthToken()!}");
+    final res = await api.getPayment(
+        "Bearer ${GreetStorage.getAuthToken()!}", whichAppSelected.value);
     try {
       if (res.response.statusCode == 200) {
         PaymentModel model = PaymentModel.fromJson(res.data);
@@ -90,7 +92,7 @@ class PaymentViewModel extends GetxController {
         });
       } else if (res.response.statusCode == 401) {
         Get.offAll(const LoginPage());
-        // loginCtr.phoneNumber.value.clear();
+        loginController.phoneNumber.value.clear();
         GreetStorage.cleanAllLocalStorage();
       } else {
         EasyLoading.showError(

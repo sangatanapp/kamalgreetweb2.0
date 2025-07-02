@@ -8,6 +8,7 @@ import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicTextfield.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:kamal_greet_web_2/sanatan/pooja/view/AddPoojaDetails.dart';
 import 'package:kamal_greet_web_2/sanatan/pooja/view/PoojaBookingList.dart';
@@ -511,7 +512,7 @@ class _PoojaDashboardState extends State<PoojaDashboard> {
 
                             /// pooja LOGO
                             Obx(() {
-                              if (dashCtr.partyLogoLoading.value) {
+                              if (logoPickerCtrl.logoLoading.value) {
                                 return Shimmer.fromColors(
                                   baseColor: Colors.grey.withOpacity(0.2),
                                   highlightColor: Colors.grey.withOpacity(0.1),
@@ -545,7 +546,7 @@ class _PoojaDashboardState extends State<PoojaDashboard> {
                                   padding: const EdgeInsets.only(left: 10),
                                   child: GestureDetector(
                                     onTap: () {
-                                      dashCtr.pickLogo(
+                                      logoPickerCtrl.pickLogo(
                                           isFromPoojaThumbnail: true,
                                           isFromGuruVani: false,
                                           isFromSanatanGod: false);

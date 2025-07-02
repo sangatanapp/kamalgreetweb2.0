@@ -13,5 +13,6 @@ abstract class PaymentApi {
       @Body() Map<String, dynamic> data, @Header('language') String language);
 
   @GET('/api/v2/getPaymentMethod')
-  Future<HttpResponse> getPayment(@Header('authorization') String token);
+  Future<HttpResponse> getPayment(
+      @Header('authorization') String token, @Query("appName") String appName);
 }

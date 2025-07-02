@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanCreationScreen.dart';
 import 'package:kamal_greet_web_2/webp/viewmodels/image_viewmodel.dart';
-
 import 'package:shimmer/shimmer.dart';
 import '../../../Utils/values/AppColors.dart';
 
@@ -53,7 +52,6 @@ Widget postImageBox(
   }
 
   Widget buildVideoAvtarShapeOption(String option) {
-    final postController = Get.put(CreationViewModel());
 
     return Row(
       children: [

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kamal_greet_web_2/Payment/viewmodel/PaymentViewModel.dart';
 import 'package:kamal_greet_web_2/Payment/widgets/PaymentAppSelector.dart';
 import 'package:kamal_greet_web_2/Payment/widgets/PaymentMethodRadioTile.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/PaddingGenerator.dart';
 import '../../Utils/values/AppColors.dart';
-import '../../Utils/widgets/DynamicAppbar.dart';
 import '../../Utils/widgets/DynamicButton.dart';
-import '../../Utils/widgets/DynamicTextfield.dart';
 
 final PaymentViewModel paymentCtrl = Get.put(PaymentViewModel());
 
@@ -36,11 +36,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
             elevation: 1,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
-            actions: const [DynamicAppbar()],
+            title: Text(
+              "Payment Gateway Setting",
+              style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
           backgroundColor: AppColors.creationScreenBackground,
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.16),
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.16),
             child: formWidget(context),
           ));
     });
@@ -224,7 +231,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     boldness: FontWeight.w500,
                     backgroundColor: Colors.white,
                     onTap: () {
-                      Get.back();
+                      context.pop(true);
                     },
                   ),
 

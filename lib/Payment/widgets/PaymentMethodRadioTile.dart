@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kamal_greet_web_2/Payment/view/PaymentScreen.dart';
-
 class PaymentMethodRadioTile extends StatefulWidget {
   const PaymentMethodRadioTile({super.key});
 

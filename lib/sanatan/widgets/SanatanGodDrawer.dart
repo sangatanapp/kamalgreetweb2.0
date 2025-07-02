@@ -7,6 +7,7 @@ import 'package:kamal_greet_web_2/Utils/values/AppConstants.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicTextfield.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
 
 import 'package:shimmer/shimmer.dart';
@@ -309,7 +310,7 @@ class _SanatanGodDrawerState extends State<SanatanGodDrawer> {
 
                             /// PARTY LOGO
                             Obx(() {
-                              if (dashCtr.partyLogoLoading.value) {
+                              if (logoPickerCtrl.logoLoading.value) {
                                 return Shimmer.fromColors(
                                   baseColor: Colors.grey.withOpacity(0.2),
                                   highlightColor: Colors.grey.withOpacity(0.1),
@@ -343,7 +344,7 @@ class _SanatanGodDrawerState extends State<SanatanGodDrawer> {
                                   padding: const EdgeInsets.only(left: 10),
                                   child: GestureDetector(
                                     onTap: () {
-                                      dashCtr.pickLogo(
+                                      logoPickerCtrl.pickLogo(
                                           isFromPoojaThumbnail: false,
                                           isFromGuruVani: false,
                                           isFromSanatanGod: true);

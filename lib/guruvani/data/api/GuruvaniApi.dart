@@ -27,4 +27,8 @@ abstract class GuruvaniApi {
   @DELETE('/guruvani/v1/deleteGuru/{id}')
   Future<HttpResponse> deleteGuru(
       @Header('authorization') String token, @Path('id') int id);
+
+  @POST('/guruvani/v1/createGuruCard')
+  Future<HttpResponse> createGuruPost(@Header('authorization') String token,
+      @Body() Map<String, dynamic> data, @Header('language') String language);
 }

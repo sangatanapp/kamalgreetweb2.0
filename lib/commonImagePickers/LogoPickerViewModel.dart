@@ -3,32 +3,35 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kamal_greet_web_2/guruvani/view/GuruvaniDashboard.dart';
+import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
+import 'package:kamal_greet_web_2/sanatan/pooja/view/PoojaDashboard.dart';
 import 'package:uuid/uuid.dart';
 
 class LogoPickerViewModel extends GetxController {
-  RxBool partyLogoLoading = false.obs;
+  RxBool logoLoading = false.obs;
   RxString firebaseImageUrl = "".obs;
   RxBool isLoadingLogo = false.obs;
   RxString logoPhoto = ''.obs;
 
   Future<void> pickLogo(
-      {required bool isFromGuruVani, required bool isFromSanatanGod}) async {
-    partyLogoLoading.value = true;
+      {required bool isFromGuruVani,
+      required bool isFromSanatanGod,
+      required bool isFromPoojaThumbnail}) async {
+    logoLoading.value = true;
     ImagePicker picker = ImagePicker();
-    XFile? file = await picker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 90,
-    );
+    XFile? file =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 90);
 
     if (file != null) {
-      Uint8List? bytes = await file?.readAsBytes();
-      await uploadLogo(bytes!, isFromGuruVani, isFromSanatanGod);
+      Uint8List? bytes = await file.readAsBytes();
+      await uploadLogo(
+          bytes, isFromGuruVani, isFromSanatanGod, isFromPoojaThumbnail);
     }
-    partyLogoLoading.value = false;
+    logoLoading.value = false;
   }
 
   Future<void> uploadLogo(Uint8List galleryImage, bool isFromGuruVani,
-      bool isFromSanatanGod) async {
+      bool isFromSanatanGod, bool isFromPoojaThumbnail) async {
     isLoadingLogo.value = true;
     Reference ref = isFromGuruVani
         ? FirebaseStorage.instanceFor(bucket: "post-karo-b0fe6.appspot.com")
@@ -50,11 +53,13 @@ class LogoPickerViewModel extends GetxController {
     TaskSnapshot snapshot = await uploadTask;
     firebaseImageUrl.value = await snapshot.ref.getDownloadURL();
     isFromGuruVani
-        ? guruvaniCtrl.uploadGuruPhoto(firebaseImageUrl.value)
+        ? guruCtrl.uploadGuruPhoto(firebaseImageUrl.value)
         : isFromSanatanGod
-            ? ""
-            // ? sanatanGodCtrl.uploadGodPhoto(firebaseImageUrl.value)
-            : uploadLogoPhoto(firebaseImageUrl.value);
+            ? sanatanGodCtrl.uploadGodPhoto(firebaseImageUrl.value)
+            : isFromPoojaThumbnail
+                ? poojaDashboardCtrl
+                    .uploadPoojaThumbnail(firebaseImageUrl.value)
+                : uploadLogoPhoto(firebaseImageUrl.value);
   }
 
   void uploadLogoPhoto(String photo) {

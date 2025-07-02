@@ -18,7 +18,8 @@ class _ImageCompressingState extends State<ImageCompressing> {
 
   // Pick an image from the gallery
   Future<void> _pickImage() async {
-    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       Uint8List fileBytes = await pickedFile.readAsBytes();
@@ -39,7 +40,8 @@ class _ImageCompressingState extends State<ImageCompressing> {
   // Compress the image
   Future<void> _compressImage(Uint8List fileBytes) async {
     // Simulate compression by resizing the image
-    Uint8List compressedBytes = Uint8List.fromList(fileBytes.sublist(0, (fileBytes.lengthInBytes * 0.5).toInt()));
+    Uint8List compressedBytes = Uint8List.fromList(
+        fileBytes.sublist(0, (fileBytes.lengthInBytes * 0.5).toInt()));
 
     // Calculate compressed size
     double compressedFileSize = compressedBytes.lengthInBytes / (1024 * 1024);
@@ -60,7 +62,8 @@ class _ImageCompressingState extends State<ImageCompressing> {
 
     final anchor = html.AnchorElement()
       ..href = url
-      ..download = "compressed_image_${DateTime.now().millisecondsSinceEpoch}.jpg"
+      ..download =
+          "compressed_image_${DateTime.now().millisecondsSinceEpoch}.jpg"
       ..click();
 
     html.Url.revokeObjectUrl(url); // Revoke the object URL to free resources
@@ -85,10 +88,12 @@ class _ImageCompressingState extends State<ImageCompressing> {
               Column(
                 children: [
                   const SizedBox(height: 16),
-                  Text('Original Size: ${_originalSize?.toStringAsFixed(2) ?? 'N/A'} MB'),
+                  Text(
+                      'Original Size: ${_originalSize?.toStringAsFixed(2) ?? 'N/A'} MB'),
                   const SizedBox(height: 8),
                   if (_compressedSize != null)
-                    Text('Compressed Size: ${_compressedSize?.toStringAsFixed(2) ?? 'N/A'} MB'),
+                    Text(
+                        'Compressed Size: ${_compressedSize?.toStringAsFixed(2) ?? 'N/A'} MB'),
                   const SizedBox(height: 16),
                   if (_compressedImage != null)
                     Image.memory(_compressedImage!, height: 200),

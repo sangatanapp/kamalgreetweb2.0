@@ -9,6 +9,7 @@ import 'package:kamal_greet_web_2/Utils/widgets/DynamicTextfield.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
 import 'package:kamal_greet_web_2/commonImagePickers/LogoPickerViewModel.dart';
 import 'package:kamal_greet_web_2/commonImagePickers/widgets/NoLogoWidget.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/guruvani/view/GuruvaniDashboard.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -20,11 +21,9 @@ class GuruViewAndCreation extends StatefulWidget {
 }
 
 class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
-  final LogoPickerViewModel logoPickerCtrl = Get.put(LogoPickerViewModel());
-
   @override
   void initState() {
-    guruvaniCtrl.getGuruList();
+    guruCtrl.getGuruList();
     super.initState();
   }
 
@@ -42,7 +41,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                     return const Divider();
                   },
                   shrinkWrap: true,
-                  itemCount: guruvaniCtrl.guruList.length,
+                  itemCount: guruCtrl.guruList.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -54,7 +53,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                             child: Image.network(
                               height: 90,
                               width: 90,
-                              guruvaniCtrl.guruList[index].guruLogo ?? "",
+                              guruCtrl.guruList[index].guruLogo ?? "",
                               fit: BoxFit.cover,
                               // Ensures the image fills the container
                               errorBuilder: (context, error, stackTrace) {
@@ -75,13 +74,13 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                                 Text(
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
-                                  guruvaniCtrl.guruList[index].guruName ?? "",
+                                  guruCtrl.guruList[index].guruName ?? "",
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14),
                                 ),
                                 Text(
-                                  guruvaniCtrl.guruList[index].guruSlogan ?? "",
+                                  guruCtrl.guruList[index].guruSlogan ?? "",
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
@@ -96,19 +95,16 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                                 icon: const Icon(Icons.edit),
                                 color: AppColors.pink,
                                 onPressed: () {
-                                  guruvaniCtrl.guruNameController.text =
-                                      guruvaniCtrl.guruList[index].guruName ??
-                                          "";
-                                  guruvaniCtrl.guruSloganController?.text =
-                                      guruvaniCtrl.guruList[index].guruSlogan ??
-                                          "";
-                                  guruvaniCtrl.guruPhoto.value =
-                                      guruvaniCtrl.guruList[index].guruLogo ??
-                                          "";
-                                  guruvaniCtrl.guruId =
-                                      guruvaniCtrl.guruList[index].guruId;
-                                  guruvaniCtrl.isEditGuru.value = true;
-                                  guruvaniCtrl.isEditGuru.refresh();
+                                  guruCtrl.guruNameController.text =
+                                      guruCtrl.guruList[index].guruName ?? "";
+                                  guruCtrl.guruSloganController?.text =
+                                      guruCtrl.guruList[index].guruSlogan ?? "";
+                                  guruCtrl.guruPhoto.value =
+                                      guruCtrl.guruList[index].guruLogo ?? "";
+                                  guruCtrl.guruId =
+                                      guruCtrl.guruList[index].guruId;
+                                  guruCtrl.isEditGuru.value = true;
+                                  guruCtrl.isEditGuru.refresh();
                                 },
                               ),
                               // IconButton(
@@ -157,13 +153,13 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                               //                             height: 30,
                               //                             textSize: 14,
                               //                             onTap: () {
-                              //                               guruvaniCtrl
+                              //                               guruCtrl
                               //                                       .guruId =
-                              //                                   guruvaniCtrl
+                              //                                   guruCtrl
                               //                                       .guruList[
                               //                                           index]
                               //                                       .guruId;
-                              //                               guruvaniCtrl
+                              //                               guruCtrl
                               //                                   .deleteGuru();
                               //                             },
                               //                           ),
@@ -227,7 +223,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                             creationSubTitle(
                                 "Guru Name",
                                 DynamicTextfield(
-                                    controller: guruvaniCtrl.guruNameController,
+                                    controller: guruCtrl.guruNameController,
                                     onChange: (value) {},
                                     maxLength: 50,
                                     height: 55,
@@ -237,8 +233,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                             creationSubTitle(
                                 "Guru Slogan",
                                 DynamicTextfield(
-                                    controller:
-                                        guruvaniCtrl.guruSloganController,
+                                    controller: guruCtrl.guruSloganController,
                                     onChange: (value) {},
                                     maxLength: 50,
                                     height: 55,
@@ -247,7 +242,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
 
                             /// PARTY LOGO
                             Obx(() {
-                              if (logoPickerCtrl.partyLogoLoading.value) {
+                              if (logoPickerCtrl.logoLoading.value) {
                                 return Shimmer.fromColors(
                                   baseColor: Colors.grey.withOpacity(0.2),
                                   highlightColor: Colors.grey.withOpacity(0.1),
@@ -282,6 +277,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                                   child: GestureDetector(
                                     onTap: () {
                                       logoPickerCtrl.pickLogo(
+                                          isFromPoojaThumbnail: false,
                                           isFromSanatanGod: false,
                                           isFromGuruVani: true);
                                     },
@@ -289,7 +285,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                                       color: Colors.white,
                                       height: 100,
                                       width: 100,
-                                      child: guruvaniCtrl.guruPhoto.value == ""
+                                      child: guruCtrl.guruPhoto.value == ""
                                           ? noLogoWidget("Add Guru Image")
                                           : Stack(
                                               children: [
@@ -298,8 +294,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                                                       const BorderRadius.all(
                                                           Radius.circular(20)),
                                                   child: Image.network(
-                                                    guruvaniCtrl
-                                                        .guruPhoto.value,
+                                                    guruCtrl.guruPhoto.value,
                                                     height: 100,
                                                     width: 100,
                                                     fit: BoxFit.cover,
@@ -321,7 +316,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                                                   right: -8,
                                                   child: IconButton(
                                                     onPressed: () {
-                                                      guruvaniCtrl
+                                                      guruCtrl
                                                           .removeGuruPhoto();
                                                     },
                                                     icon: Container(
@@ -362,7 +357,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      guruvaniCtrl.clearAddGuru();
+                                      guruCtrl.clearAddGuru();
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColors.whiteCard,
@@ -383,17 +378,17 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                                   const SizedBox(width: 5),
                                   ElevatedButton(
                                     onPressed: () {
-                                      if (guruvaniCtrl
+                                      if (guruCtrl
                                           .guruNameController.text.isEmpty) {
                                         EasyLoading.showError(
                                             'Enter Guru Name');
                                         return;
-                                      } else if (guruvaniCtrl
+                                      } else if (guruCtrl
                                           .guruPhoto.value.isEmpty) {
                                         EasyLoading.showError('Add Guru Image');
                                         return;
                                       } else {
-                                        guruvaniCtrl.createUpdateGuru();
+                                        guruCtrl.createUpdateGuru();
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -407,7 +402,7 @@ class _GuruViewAndCreationState extends State<GuruViewAndCreation> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 15),
                                       child: Text(
-                                          guruvaniCtrl.isEditGuru.value
+                                          guruCtrl.isEditGuru.value
                                               ? 'update'.tr
                                               : 'submit'.tr,
                                           style: const TextStyle(

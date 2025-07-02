@@ -19,15 +19,15 @@ Widget guruSelector(BuildContext context) {
                 decoration: CreationDecorations()
                     .inputDecoration(labelText: "Select Guru"),
                 onSubmitted: (text) async {
-                  if (guruvaniCtrl.selectedGuruName.value.contains(text)) {
+                  if (guruCtrl.selectedGuruName.value.contains(text)) {
                     EasyLoading.showInfo("Guru Alrady Added");
                   } else {
-                    guruvaniCtrl.addGuru(text);
+                    guruCtrl.addGuru(text);
                   }
                 },
               ),
               suggestionsCallback: (pattern) async {
-                return guruvaniCtrl.allGuruSuggestions;
+                return guruCtrl.allGuruSuggestions;
               },
               itemBuilder: (context, suggestion) {
                 return ListTile(
@@ -35,11 +35,11 @@ Widget guruSelector(BuildContext context) {
                 );
               },
               onSuggestionSelected: (suggestion) async {
-                if (guruvaniCtrl.selectedGuruName.contains(suggestion)) {
+                if (guruCtrl.selectedGuruName.contains(suggestion)) {
                   EasyLoading.showInfo("Guru Alrady Added");
                 } else {
-                  guruvaniCtrl.addGuru(suggestion);
-                  print("${guruvaniCtrl.selectedGuruName}");
+                  guruCtrl.addGuru(suggestion);
+                  print("${guruCtrl.selectedGuruName}");
                 }
               },
             ),
@@ -73,21 +73,21 @@ Widget guruSelector(BuildContext context) {
         height: 5,
       ),
       Obx(() {
-        if (guruvaniCtrl.selectedGuruName.isNotEmpty) {
+        if (guruCtrl.selectedGuruName.isNotEmpty) {
           return Wrap(
             spacing: 8.0,
             runSpacing: 4.0,
-            children: guruvaniCtrl.selectedGuruName.map((tag) {
+            children: guruCtrl.selectedGuruName.map((tag) {
               return Chip(
                 labelStyle: TextStyle(color: Colors.blue.shade800),
                 backgroundColor: Colors.blue.shade100,
                 label: Text(tag),
                 onDeleted: () {
-                  guruvaniCtrl.selectedGuruName
+                  guruCtrl.selectedGuruName
                       .removeWhere((element) => element == tag);
 
-                  guruvaniCtrl.selectedGuruName.refresh();
-                  print("${guruvaniCtrl.selectedGuruName}");
+                  guruCtrl.selectedGuruName.refresh();
+                  print("${guruCtrl.selectedGuruName}");
                 },
                 deleteIconColor: Colors.blue.shade800,
               );
