@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kamal_greet_web_2/guruvani/view/GuruvaniDashboard.dart';
-import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
-import 'package:kamal_greet_web_2/sanatan/pooja/view/PoojaDashboard.dart';
 import 'package:uuid/uuid.dart';
 
 class LogoPickerViewModel extends GetxController {
@@ -54,12 +52,12 @@ class LogoPickerViewModel extends GetxController {
     firebaseImageUrl.value = await snapshot.ref.getDownloadURL();
     isFromGuruVani
         ? guruCtrl.uploadGuruPhoto(firebaseImageUrl.value)
-        : isFromSanatanGod
-            ? sanatanGodCtrl.uploadGodPhoto(firebaseImageUrl.value)
-            : isFromPoojaThumbnail
-                ? poojaDashboardCtrl
-                    .uploadPoojaThumbnail(firebaseImageUrl.value)
-                : uploadLogoPhoto(firebaseImageUrl.value);
+        // : isFromSanatanGod
+        //     ? sanatanGodCtrl.uploadGodPhoto(firebaseImageUrl.value)
+        //     : isFromPoojaThumbnail
+        //         ? poojaDashboardCtrl
+        //             .uploadPoojaThumbnail(firebaseImageUrl.value)
+        : uploadLogoPhoto(firebaseImageUrl.value);
   }
 
   void uploadLogoPhoto(String photo) {

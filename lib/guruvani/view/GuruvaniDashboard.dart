@@ -65,7 +65,10 @@ class GuruvaniDashboard extends StatelessWidget {
                                     boldness: FontWeight.w500,
                                     height: isMobile ? 26 : 46,
                                     textSize: isMobile ? 8 : 16,
-                                    onTap: () {},
+                                    onTap: () {
+                                      context
+                                          .go('/guruvani/dashboard/creation');
+                                    },
                                   ),
                                   const SizedBox(height: 40),
                                   DynamicButton(

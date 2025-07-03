@@ -39,7 +39,7 @@ class ImageConverterService {
       // CropController controller = CropController();
       // await creationImageUploadCtrl.cropCardImage(webpBytes, controller);
 
-      creationImageUploadCtrl.checkUint8ListSize(webpBytes);
+      // creationImageUploadCtrl.checkUint8ListSize(webpBytes);
 
       return imageData;
     } catch (e) {

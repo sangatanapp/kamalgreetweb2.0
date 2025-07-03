@@ -2,6 +2,7 @@ import 'package:kamal_greet_web_2/Payment/view/PaymentScreen.dart';
 import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
 import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/guruvani/view/GuruViewAndCreation.dart';
+import 'package:kamal_greet_web_2/guruvani/view/GuruvaniCardCreation.dart';
 import 'package:kamal_greet_web_2/guruvani/view/GuruvaniDashboard.dart';
 import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:kamal_greet_web_2/login/view/OtpPage.dart';
@@ -18,9 +19,18 @@ GoRouter router = GoRouter(
     GoRoute(
         path: '/dashboard',
         builder: (context, state) => const DashboardScreen()),
+
+    ///***** Guruvani Routes *****///
+
     GoRoute(
         path: '/guruvani/dashboard',
         builder: (context, state) => const GuruvaniDashboard()),
+    GoRoute(
+        path: '/guruvani/dashboard/guru',
+        builder: (context, state) => const GuruViewAndCreation()),
+    GoRoute(
+        path: '/guruvani/dashboard/creation',
+        builder: (context, state) => const GuruvaniCardCreation()),
     GoRoute(
         path: '/payment', builder: (context, state) => const PaymentScreen()),
   ],

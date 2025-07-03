@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-Future<void> selectStartDateAndTime(BuildContext context) async {
+Future<void> selectStartDateAndTime(
+    {required BuildContext context,
+    required TextEditingController startDateController}) async {
   DateTime? pickedDate = await showDatePicker(
     context: context,
     initialDate: DateTime.now(),
@@ -22,15 +25,8 @@ Future<void> selectStartDateAndTime(BuildContext context) async {
         pickedTime.hour,
         pickedTime.minute,
       );
-      String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
-      // postController.startDateString.value = formattedDate;
-
-      String formattedTime = DateFormat('HH:mm').format(selectedDateTime);
-      // postController.startTimeString.value = formattedTime;
-
-      String formattedDateTime =
+      startDateController.text =
           DateFormat('dd-MM-yyyy HH:mm').format(selectedDateTime);
-      // postController.startDate.value.text = formattedDateTime;
     }
   }
 }

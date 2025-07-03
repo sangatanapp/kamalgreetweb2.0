@@ -15,12 +15,13 @@ class GuruvaniViewModel extends GetxController {
   final api = GuruvaniApi(apiCallBaseOption());
   RxList<GuruvaniPostData> guruvaniPostList = <GuruvaniPostData>[].obs;
   final rxRequestStatus = Status.INITIAL.obs;
+  RxBool notifyUsers = false.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
   /// TEXT EDITING CONTROLLER VARIABLES ----------------------------------------
-  final startDate = TextEditingController().obs;
-  final endDate = TextEditingController().obs;
+  final startDate = TextEditingController();
+  final endDate = TextEditingController();
   final titleController = TextEditingController().obs;
   final colorController = TextEditingController().obs;
   final sharingContent = TextEditingController().obs;
@@ -31,7 +32,6 @@ class GuruvaniViewModel extends GetxController {
     try {
       res = await api.getGuruvaniCardList(
           "Bearer ${GreetStorage.getAuthToken()!}", "hi");
-
       if (res.response.statusCode == 200) {
         GuruvaniModel model = GuruvaniModel.fromJson(res.data);
         model.postData?.forEach((element) {
@@ -67,18 +67,18 @@ class GuruvaniViewModel extends GetxController {
         {
           "title": titleController.value.text,
           "sharing_content": sharingContent.value.text,
-          "avatar_postion": selectedAlignment.value,
+          // "avatar_postion": selectedAlignment.value,
           // "party_logo": finalPartyLogo.value,
           "party_logo": "",
           "partylogo_position": "",
-          "notify": postController.notifyUsers.value,
-          "start_date": startDateString.value,
-          "start_time": postController.startTimeString.value,
-          "end_date": postController.endDateString.value,
-          "end_time": postController.endTimeString.value,
+          "notify": notifyUsers.value,
+          // "start_date": startDateString.value,
+          // "start_time": postController.startTimeString.value,
+          // "end_date": postController.endDateString.value,
+          // "end_time": postController.endTimeString.value,
           "tag_list": [],
           "category_list": [],
-          "wishes_position": postController.selectedWishesPosition.value,
+          // "wishes_position": postController.selectedWishesPosition.value,
           // "state_id": dashCtr.stateId.toString(),
           "state_id": "0",
           "post_language": "hi",
@@ -89,9 +89,8 @@ class GuruvaniViewModel extends GetxController {
           "party_id": [0],
           "avatar_shape": "square",
           "post_type": "image",
-          "post_url": postController.mainPostImage.value,
-          "guruid_list":
-              fetchGuruIdsFromNames(tagController.selectedGuruName.value),
+          // "post_url": postController.mainPostImage.value,
+          "guruid_list": fetchGuruIdsFromNames(guruCtrl.selectedGuruName.value),
           "name_plate":
               "https://firebasestorage.googleapis.com/v0/b/postkaro-3dd61.appspot.com/o/nameplat%2F771ff000-6a38-1f3b-9c89-13b8add6da5e?alt=media&token=7453f9d8-b84d-4601-9082-369b99a17f36",
           "bg_url": "",
@@ -100,8 +99,7 @@ class GuruvaniViewModel extends GetxController {
           "language": "",
           "country_id": "",
         },
-
-            .languageShortName.value);
+        "hi");
 
     if (res.response.statusCode == 200 || res.response.statusCode == 201) {
       getGuruvaniCards();
@@ -118,12 +116,14 @@ class GuruvaniViewModel extends GetxController {
       EasyLoading.showError('Select Start & End Date');
     } else if (titleController.value.text.isEmpty) {
       EasyLoading.showError('Please Add Title');
-    } else if (languageName.value.isEmpty) {
-      EasyLoading.showError('Select Language');
-    } else if (selectedGuruName.value.isEmpty) {
+      // } else if (languageName.value.isEmpty) {
+      //   EasyLoading.showError('Select Language');
+    } else if (guruCtrl.selectedGuruName.value.isEmpty) {
       EasyLoading.showError('Select Guru');
-    } else if (mainPostImage.value.toString().isEmpty) {
-      EasyLoading.showError('Please Add Post Image');
+      // } else if (mainPostImage.value
+      //     .toString()
+      //     .isEmpty) {
+      //   EasyLoading.showError('Please Add Post Image');
     } else {
       createGuruPost();
     }
