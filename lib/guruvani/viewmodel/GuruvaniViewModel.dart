@@ -8,6 +8,7 @@ import 'package:kamal_greet_web_2/apicalling/StatusCodeResponse.dart';
 import 'package:kamal_greet_web_2/guruvani/data/api/GuruvaniApi.dart';
 import 'package:kamal_greet_web_2/guruvani/data/model/GuruvaniModel.dart';
 import 'package:kamal_greet_web_2/guruvani/view/GuruvaniDashboard.dart';
+import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../Utils/database/GreetStorage.dart';
 
@@ -41,10 +42,7 @@ class GuruvaniViewModel extends GetxController {
         setRxRequestStatus(Status.COMPLETED);
         // dashCtr.tagCtr.getTagList('all');
       } else if (res.response.statusCode == 401) {
-        setRxRequestStatus(Status.ERROR);
-        // Get.offAll(const LoginPage());
-        // loginCtr.phoneNumber.value.clear();
-        // GreetStorage.cleanAllLocalS`torage();2
+        handleApiStatus(401);
       } else {
         setRxRequestStatus(Status.ERROR);
 
@@ -108,6 +106,29 @@ class GuruvaniViewModel extends GetxController {
     } else {
       EasyLoading.showError(
           "${res.response.statusCode} ${res.response.statusMessage}");
+    }
+  }
+
+  Future deleteCard(int id) async {
+    EasyLoading.showToast("Deleting Card...");
+
+    final res = await api.deleteCard(
+        "Bearer ${GreetStorage.getAuthToken()!}", id, "hi");
+    try {
+      if (res.response.statusCode == 200) {
+        refresh();
+        EasyLoading.showSuccess("Card Deleted Successfully!");
+        await getGuruvaniCards();
+      } else if (res.response.statusCode == 401) {
+        handleApiStatus(401);
+      } else {
+        EasyLoading.showError(
+            "${res.response.statusCode} ${res.response.statusMessage}");
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

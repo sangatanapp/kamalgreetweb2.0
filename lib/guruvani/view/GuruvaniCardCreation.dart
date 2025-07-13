@@ -35,7 +35,7 @@ class GuruvaniCardCreation extends StatelessWidget {
                   elevation: 1,
                   automaticallyImplyLeading: false,
                   backgroundColor: Colors.white,
-                  actions: const [DynamicAppbar()],
+                  actions: const [DynamicAppbar(whichApp: "guruvani")],
                 ),
                 backgroundColor: AppColors.creationScreenBackground,
                 body: Padding(
@@ -65,9 +65,7 @@ class GuruvaniCardCreation extends StatelessWidget {
               children: [
                 /// START DATE & END DATE
                 guruvaniDateTimeWidget(context: context),
-
                 formPadding(),
-
                 /// POST TITLE
                 creationSubTitle(
                     "title".tr,
@@ -82,7 +80,6 @@ class GuruvaniCardCreation extends StatelessWidget {
                       hintText: "title".tr,
                     )),
                 formPadding(),
-
                 /// SHARING CONTENT
                 creationSubTitle(
                     "postContent".tr,
@@ -96,19 +93,15 @@ class GuruvaniCardCreation extends StatelessWidget {
                     )),
                 formPadding(),
                 creationSubTitle("Select Guru", guruSelector(context)),
-
                 formPadding(),
-
                 // /// IMAGE SETTINGS BOX
                 // postImageBox(
                 //     context: context, isPhoto: guruvaniCtrl.getPostType()),
                 //
                 /// NOTIFICATION BOX
                 guruvaniNotificationBox(),
-
                 /// CANCEL & SUBMIT BUTTON
                 guruvaniCreationButtons(context: context),
-
                 formPaddingPlus(),
               ],
             ),

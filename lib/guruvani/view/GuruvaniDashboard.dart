@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityWidget.dart';
 import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
+import 'package:kamal_greet_web_2/Utils/widgets/CardListBuilder.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
 import 'package:kamal_greet_web_2/guruvani/viewmodel/GuruViewmodel.dart';
@@ -15,8 +16,19 @@ import '../../Utils/widgets/CardListMandatories.dart';
 final GuruvaniViewModel guruvaniCtrl = Get.put(GuruvaniViewModel());
 final GuruViewModel guruCtrl = Get.put(GuruViewModel());
 
-class GuruvaniDashboard extends StatelessWidget {
+class GuruvaniDashboard extends StatefulWidget {
   const GuruvaniDashboard({super.key});
+
+  @override
+  State<GuruvaniDashboard> createState() => _GuruvaniDashboardState();
+}
+
+class _GuruvaniDashboardState extends State<GuruvaniDashboard> {
+  @override
+  void initState() {
+    // guruvaniCtrl.getGuruvaniCards();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,9 +111,11 @@ class GuruvaniDashboard extends StatelessWidget {
                                   case Status.INITIAL:
                                     return const SizedBox.shrink();
                                   case Status.COMPLETED:
-                                  // return Flexible(
-                                  //   child: programListBuilder(isMobile),
-                                  // );
+                                    return Flexible(
+                                      child: programListBuilder(isMobile,
+                                          filteredList: guruvaniCtrl
+                                              .guruvaniPostList.value),
+                                    );
                                   case Status.LOADING:
                                     return Flexible(child: shimmerCards());
                                   case Status.ERROR:

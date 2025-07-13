@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/commonImagePickers/LogoPickerViewModel.dart';
+import 'package:kamal_greet_web_2/dashboard/viewmodel/DashboardViewModel.dart';
 import 'package:kamal_greet_web_2/dashboard/widget/AppCardsWidget.dart';
 
 final connectivityCtrl = Get.put(ConnectivityController());
 final LogoPickerViewModel logoPickerCtrl = Get.put(LogoPickerViewModel());
+final DashboardViewModel dashboardCtrl = Get.put(DashboardViewModel());
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
