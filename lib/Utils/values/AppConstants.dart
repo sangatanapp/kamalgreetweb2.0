@@ -7,6 +7,8 @@ class AppConstants {
   static double titleSize2 = 20;
   static double subTitleSize = 14;
   static double largHeading = 30;
+  static int maxtitleLength = 200;
+
   static Icon loginIcon = Icon(
     Icons.mobile_screen_share,
     size: 100,

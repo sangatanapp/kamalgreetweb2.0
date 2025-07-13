@@ -1,7 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:get/get.dart';
-// import 'package:kamalgreet/Creation/helpers/fields/SubCategorySelector.dart';
-// import 'package:kamalgreet/Creation/viewModel/SubCategoryViewModel.dart';
+// import 'package:kamal_greet_web_2/Creation/helpers/fields/SubCategorySelector.dart';
+// import 'package:kamal_greet_web_2/Creation/viewModel/SubCategoryViewModel.dart';
 //
 // import '../../../Dashboard/viewModel/DashViewModel.dart';
 // import '../../../Utils/widgets/DynamicDropdown.dart';
