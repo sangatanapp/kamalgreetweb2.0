@@ -56,10 +56,7 @@ class _PoojaDashboardState extends State<PoojaDashboard> {
                           onPressed: () => Get.to(() => PoojaBookingList()),
                           child: Text("Pooja Booking List"))
                     ],
-                    leading: InkWell(
-                        onTap: () => Get.back(),
-                        child:
-                            const Icon(Icons.arrow_back, color: Colors.black)),
+
                     centerTitle: true,
                     title: Text(
                       "Pooja",
@@ -391,7 +388,7 @@ class _PoojaDashboardState extends State<PoojaDashboard> {
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                   color: Colors.white,
                 ),
-                width: Get.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.5,
                 child: SingleChildScrollView(
                   child: Padding(
                       padding: const EdgeInsets.only(
@@ -682,7 +679,7 @@ class _PoojaDashboardState extends State<PoojaDashboard> {
 
                             /// pooja LOGO
                             Obx(() {
-                              if (dashCtr.partyLogoLoading.value) {
+                              if (logoPickerCtrl.isLoadingLogo.value) {
                                 return Shimmer.fromColors(
                                   baseColor: Colors.grey.withOpacity(0.2),
                                   highlightColor: Colors.grey.withOpacity(0.1),

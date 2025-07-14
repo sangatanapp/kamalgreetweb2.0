@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kamal_greet_web_2/Utils/ImageVideoUploader/viewmodel/CreationImageUploadViewModel.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityWidget.dart';
 import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/PaddingGenerator.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
 import 'package:kamal_greet_web_2/sanatan/widgets/SanatanGodSelector.dart';
@@ -24,6 +28,7 @@ class AddDarshanScreen extends StatefulWidget {
 }
 
 class _AddDarshanScreenState extends State<AddDarshanScreen> {
+  final CreationImageUploadViewModel creationImageUploadCtrl = Get.put(CreationImageUploadViewModel());
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -38,7 +43,7 @@ class _AddDarshanScreenState extends State<AddDarshanScreen> {
             return Scaffold(
                 backgroundColor: AppColors.creationScreenBackground,
                 body: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.16),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.16),
                   child: formWidget(context),
                 ));
           } else {
@@ -129,7 +134,7 @@ class _AddDarshanScreenState extends State<AddDarshanScreen> {
                             color: Colors.white,
                             height: 220,
                             width: 220,
-                            child: postController.mainPostImage.value == ""
+                            child: imageVideoMainCtrl.mainPostImage.value == ""
                                 ? Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(12),
@@ -145,7 +150,7 @@ class _AddDarshanScreenState extends State<AddDarshanScreen> {
                                         children: [
                                           Image.asset(
                                             "assets/images/imagePlaceholder.png",
-                                            height: Get.height * 0.16,
+                                            height: MediaQuery.of(context).size.height * 0.16,
                                             fit: BoxFit.fill,
                                           ),
                                           const SizedBox(height: 15),
@@ -173,7 +178,7 @@ class _AddDarshanScreenState extends State<AddDarshanScreen> {
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.network(
-                                          postController.mainPostImage.value,
+                                          imageVideoMainCtrl.mainPostImage.value,
                                           height: 200,
                                           width: 220,
                                           fit: BoxFit.cover,
@@ -232,8 +237,8 @@ class _AddDarshanScreenState extends State<AddDarshanScreen> {
                     /// CANCEL BUTTON
                     DynamicButton(
                       text: 'cancel'.tr,
-                      height: Get.width * 0.05,
-                      width: Get.width * 0.3,
+                      height: MediaQuery.of(context).size.width * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       textSize: 16,
                       radius: 50,
                       textColor: Colors.black,
@@ -247,8 +252,8 @@ class _AddDarshanScreenState extends State<AddDarshanScreen> {
                     /// SUBMIT BUTTON
                     DynamicButton(
                         text: 'creationTitle'.tr,
-                        height: Get.width * 0.05,
-                        width: Get.width * 0.3,
+                        height: MediaQuery.of(context).size.width * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.3,
                         textSize: 16,
                         radius: 50,
                         textColor: Colors.black,
@@ -266,7 +271,7 @@ class _AddDarshanScreenState extends State<AddDarshanScreen> {
                           //   return;
                           // }
                           //
-                          else if (postController.mainPostImage.value == "") {
+                          else if (imageVideoMainCtrl.mainPostImage.value == "") {
                             EasyLoading.showError("Select Image");
                             return;
                           } else {

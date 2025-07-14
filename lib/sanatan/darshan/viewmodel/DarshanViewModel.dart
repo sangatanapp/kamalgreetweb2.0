@@ -6,10 +6,13 @@ import 'package:get/get.dart';
 import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
 import 'package:kamal_greet_web_2/apicalling/StatusCodeResponse.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/darshan/data/api/DarshanApi.dart';
 import 'package:kamal_greet_web_2/sanatan/darshan/data/model/DarshanModel.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanCreationScreen.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+import '../../../apicalling/ApiCallBaseOption.dart';
 
 class DarshanViewModel extends GetxController {
   Rx<TextEditingController> darshanTitleCtrl = TextEditingController().obs;
@@ -17,16 +20,7 @@ class DarshanViewModel extends GetxController {
   RxList<DarshanDataList> darshanList = <DarshanDataList>[].obs;
   RxBool isPremium = false.obs;
 
-  final api = DarshanApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = DarshanApi(apiCallBaseOption());
 
   final rxDarshanStatus = Status.INITIAL.obs;
 
@@ -39,7 +33,7 @@ class DarshanViewModel extends GetxController {
         await api.createDarshan("Bearer ${GreetStorage.getAuthToken()!}", {
       "title": darshanTitleCtrl.value.text,
       "description": darshanDescCtrl.value.text,
-      "god_url": postController.mainPostImage.value,
+      "god_url": imageVideoMainCtrl.mainPostImage.value,
       "god_id": sanatanCreationCtrl
           .fetchGodIdFromName(sanatanCreationCtrl.godSelectorController.text)[0]
           .toString(),

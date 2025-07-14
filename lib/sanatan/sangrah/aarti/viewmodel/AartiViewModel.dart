@@ -11,19 +11,12 @@ import 'package:kamal_greet_web_2/sanatan/sangrah/aarti/data/api/AartiApi.dart';
 import 'package:kamal_greet_web_2/sanatan/sangrah/aarti/data/model/AartiModel.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../../../apicalling/ApiCallBaseOption.dart';
+
 class AartiViewModel extends GetxController {
   Rx<TextEditingController> aartiTitleTextCtrl = TextEditingController().obs;
   Rx<TextEditingController> aartiDescTextCtrl = TextEditingController().obs;
-  final api = AartiApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = AartiApi(apiCallBaseOption());
   final rxAartiStatus = Status.INITIAL.obs;
   RxList<AartiDataList> aartiList = <AartiDataList>[].obs;
 

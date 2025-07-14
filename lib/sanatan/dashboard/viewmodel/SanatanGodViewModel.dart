@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
+import 'package:kamal_greet_web_2/apicalling/ApiCallBaseOption.dart';
 import 'package:kamal_greet_web_2/apicalling/StatusCodeResponse.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/data/api/SanatanGodApi.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/data/model/SanatanGodListModel.dart';
@@ -15,19 +16,7 @@ import '../../../Utils/widgets/DynamicAppbar.dart';
 import '../view/SanatanCreationScreen.dart';
 
 class SanatanGodViewModel extends GetxController {
-  final api = SanatanGodApi(Dio(BaseOptions(
-    contentType: 'application/json',
-    validateStatus: ((status) => true),
-    receiveTimeout: const Duration(seconds: 30),
-  ))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = SanatanGodApi(apiCallBaseOption());
 
   RxBool isLoadingGodImage = false.obs;
   RxString godPhoto = ''.obs;

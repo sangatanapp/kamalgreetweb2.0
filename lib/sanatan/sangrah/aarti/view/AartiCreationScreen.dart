@@ -35,7 +35,7 @@ class _AartiCreationScreenState extends State<AartiCreationScreen> {
             return Scaffold(
                 backgroundColor: AppColors.creationScreenBackground,
                 body: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.16),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.16),
                   child: formWidget(context),
                 ));
           } else {
@@ -98,8 +98,8 @@ class _AartiCreationScreenState extends State<AartiCreationScreen> {
                     /// CANCEL BUTTON
                     DynamicButton(
                       text: 'cancel'.tr,
-                      height: Get.width * 0.05,
-                      width: Get.width * 0.3,
+                      height: MediaQuery.of(context).size.width * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       textSize: 16,
                       radius: 50,
                       textColor: Colors.black,
@@ -113,8 +113,8 @@ class _AartiCreationScreenState extends State<AartiCreationScreen> {
                     /// SUBMIT BUTTON
                     DynamicButton(
                         text: 'creationTitle'.tr,
-                        height: Get.width * 0.05,
-                        width: Get.width * 0.3,
+                        height: MediaQuery.of(context).size.width * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.3,
                         textSize: 16,
                         radius: 50,
                         textColor: Colors.black,

@@ -45,8 +45,8 @@ Widget sanatanModuleSelector({required bool isMobile}) {
                   color: sanatanDashboardCtrl.selectedModule.value == index
                       ? AppColors.primaryColor
                       : Colors.white),
-              height: isMobile ? Get.width * 0.1 : Get.width * 0.03,
-              width: isMobile ? Get.width * 0.3 : Get.width * 0.19,
+              height: isMobile ? MediaQuery.of(context).size.width * 0.1 : MediaQuery.of(context).size.width * 0.03,
+              width: isMobile ? MediaQuery.of(context).size.width * 0.3 : MediaQuery.of(context).size.width * 0.19,
               child: Center(
                 child: Text(
                   sanatanDashboardCtrl.moduleName[index],

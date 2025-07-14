@@ -17,6 +17,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../Utils/widgets/DynamicAppbar.dart';
+import '../../../../apicalling/ApiCallBaseOption.dart';
 
 class MantraViewModel extends GetxController {
   Rx<TextEditingController> mantraTitleCtrl = TextEditingController().obs;
@@ -26,16 +27,7 @@ class MantraViewModel extends GetxController {
   List sangrahModuleName = ["Mantra", "Aarti", "chaleesa", "Stōtra","Ring/Msg Tone"];
   RxInt sangrahSelectedModule = 0.obs;
 
-  final api = MantraApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = MantraApi(apiCallBaseOption());
 
   final rxMantraStatus = Status.INITIAL.obs;
 

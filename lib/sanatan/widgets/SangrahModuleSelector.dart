@@ -49,7 +49,7 @@ Widget sangrahModuleSelector() {
                     color: mantraCtrl.sangrahSelectedModule.value == index
                         ? AppColors.primaryColor
                         : Colors.white),
-                height: Get.width * 0.03,
+                height: MediaQuery.of(context).size.width * 0.03,
                 width: 170,
                 child: Center(
                   child: Text(

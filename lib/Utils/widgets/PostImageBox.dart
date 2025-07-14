@@ -160,7 +160,7 @@
 //         child: Text(
 //           ratio,
 //           style: TextStyle(
-//             fontSize: Get.width > 600 ? 14 : 10,
+//             fontSize: MediaQuery.of(context).size.width > 600 ? 14 : 10,
 //             color: isVideo
 //                 ? Colors.white
 //                 : (postController.cropRatio.value == ratio
@@ -284,7 +284,7 @@
 //                                         children: [
 //                                           Image.asset(
 //                                             "assets/images/imagePlaceholder.png",
-//                                             height: Get.height * 0.16,
+//                                             height: MediaQuery.of(context).size.height * 0.16,
 //                                             fit: BoxFit.fill,
 //                                           ),
 //                                           const SizedBox(height: 15),

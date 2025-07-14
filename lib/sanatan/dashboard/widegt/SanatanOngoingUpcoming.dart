@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kamal_greet_web_2/main.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
 import '../../../Utils/values/AppColors.dart';
 
 Widget sanatanOngoingUpcomingTabs({
+  required BuildContext context,
   required String tabName,
   required Function() onPress,
   required bool isMobile,
@@ -39,8 +41,12 @@ Widget sanatanOngoingUpcomingTabs({
   return GestureDetector(
     onTap: onPress,
     child: Container(
-      height: isMobile ? Get.width * 0.1 : Get.width * 0.02,
-      width: isMobile ? Get.width * 0.3 : Get.width * 0.07,
+      height: isMobile
+          ? MediaQuery.of(context).size.width * 0.1
+          : MediaQuery.of(context).size.width * 0.02,
+      width: isMobile
+          ? MediaQuery.of(context).size.width * 0.3
+          : MediaQuery.of(context).size.width * 0.07,
       decoration: BoxDecoration(
         color: tabBackgroundColor,
         border: Border.all(color: AppColors.ongoingButton),

@@ -265,7 +265,7 @@ class _SanatanGodDrawerState extends State<SanatanGodDrawer> {
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                   color: Colors.white,
                 ),
-                width: Get.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.5,
                 child: SingleChildScrollView(
                   child: Padding(
                       padding: const EdgeInsets.only(

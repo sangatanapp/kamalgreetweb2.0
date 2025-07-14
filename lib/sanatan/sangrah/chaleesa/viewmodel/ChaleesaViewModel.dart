@@ -12,20 +12,12 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../../../Utils/database/GreetStorage.dart';
 import '../../../../Utils/widgets/DynamicAppbar.dart';
+import '../../../../apicalling/ApiCallBaseOption.dart';
 
 class ChaleesaViewModel extends GetxController {
   Rx<TextEditingController> chaleesaTitleTextCtrl = TextEditingController().obs;
   Rx<TextEditingController> chaleesaDescTextCtrl = TextEditingController().obs;
-  final api = ChaleesaApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = ChaleesaApi(apiCallBaseOption());
 
   final rxChaleesaStatus = Status.INITIAL.obs;
   RxList<ChaleesaListData> chaleesaList = <ChaleesaListData>[].obs;

@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kamal_greet_web_2/Utils/ImageVideoUploader/viewmodel/ImageVideoMainVideoModel.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/commonImagePickers/LogoPickerViewModel.dart';
 import 'package:kamal_greet_web_2/dashboard/viewmodel/DashboardViewModel.dart';
 import 'package:kamal_greet_web_2/dashboard/widget/AppCardsWidget.dart';
+import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
 
 final connectivityCtrl = Get.put(ConnectivityController());
 final LogoPickerViewModel logoPickerCtrl = Get.put(LogoPickerViewModel());
 final DashboardViewModel dashboardCtrl = Get.put(DashboardViewModel());
+final ImageVideoMainVideoModel imageVideoMainCtrl =
+    Get.put(ImageVideoMainVideoModel());
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -24,7 +28,15 @@ class DashboardScreen extends StatelessWidget {
               onPressed: () => context.push("/payment"),
               child: Text(
                 "Payment",
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w500,color: Colors.black),
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w500, color: Colors.black),
+              )),
+          TextButton(
+              onPressed: () => context.push("/access"),
+              child: Text(
+                "Access Setting",
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w500, color: Colors.black),
               ))
         ],
       ),
@@ -47,7 +59,11 @@ class DashboardScreen extends StatelessWidget {
                     title: "Guru Vani",
                     imageString: "assets/images/guruvanilogo.png"),
                 appCardsWidget(
-                    onTap: () {},
+                    onTap: () {
+                      sanatanDashboardCtrl.isSanatan = true;
+
+                      context.go("/sanatan/dashboard");
+                    },
                     title: "Sanatan",
                     imageString: "assets/images/sanatanlogo.png"),
                 appCardsWidget(

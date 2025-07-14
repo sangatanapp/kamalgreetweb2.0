@@ -9,6 +9,8 @@ import 'package:kamal_greet_web_2/sanatan/dashboard/data/api/SanatanApi.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/data/model/SanatanPostModel.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../../apicalling/ApiCallBaseOption.dart';
+
 class SanatanDashboardViewModel extends GetxController {
   bool? isSanatan;
 
@@ -17,16 +19,7 @@ class SanatanDashboardViewModel extends GetxController {
 
   RxList<SanatanPostData> sanatanPostList = <SanatanPostData>[].obs;
 
-  final api = SanatanApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = SanatanApi(apiCallBaseOption());
 
   final rxSanatanPostStatus = Status.INITIAL.obs;
   final ScrollController scrollController = ScrollController();
@@ -130,5 +123,16 @@ class SanatanDashboardViewModel extends GetxController {
   clearCategory() {
     selectedCategoryList.clear();
     update();
+  }
+  bool getPostType() {
+    List<String> postTypeList = selectedCategoryList.toList();
+    if (postTypeList.isEmpty) {
+      return true;
+    }
+    if (postTypeList.contains('video')) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

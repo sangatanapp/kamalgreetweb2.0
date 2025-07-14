@@ -6,21 +6,13 @@ import 'package:kamal_greet_web_2/sanatan/pooja/data/api/PoojaApi.dart';
 import 'package:kamal_greet_web_2/sanatan/pooja/data/model/PoojaBookingList.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../../apicalling/ApiCallBaseOption.dart';
+
 class PoojaBookingListViewModel extends GetxController {
   // ############################## GET API ######################################
   // ############################## GET API ######################################
 
-  final api = PoojaApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = PoojaApi(apiCallBaseOption());
   RxList<PoojaBookingListData> poojaBookingListData =
       <PoojaBookingListData>[].obs;
 

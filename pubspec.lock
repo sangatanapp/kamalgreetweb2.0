@@ -49,6 +49,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  axis_layout:
+    dependency: transitive
+    description:
+      name: axis_layout
+      sha256: "9ba44f279f39121065d811e72da892de86f5613d68eb0b295f60d021ea8f2a59"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -185,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  crop_your_image:
+    dependency: "direct main"
+    description:
+      name: crop_your_image
+      sha256: "9ae3b33042de5bda5321fc48aad41054c196bf2cc28350cd30cb8a85c1a7b1bd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   cross_file:
     dependency: transitive
     description:
@@ -209,6 +225,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.6"
+  davi:
+    dependency: "direct main"
+    description:
+      name: davi
+      sha256: a2deb39adcd007e75c5e795e601460d6ea8b0ee585e422317a3a2eb36d30848c
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
   dbus:
     dependency: transitive
     description:

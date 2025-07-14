@@ -8,12 +8,14 @@ import 'package:kamal_greet_web_2/Utils/widgets/EndDateSelector.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/PaddingGenerator.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/StartDateSelector.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
+import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/viewmodel/SanatanCreationViewModel.dart';
 import 'package:kamal_greet_web_2/sanatan/widgets/SanatanGodSelector.dart';
 import 'package:kamal_greet_web_2/sanatan/widgets/SanatanPostTypeSelector.dart';
 
 import '../../../Utils/internet/ConnectivityController.dart';
 import '../../../Utils/values/AppConstants.dart';
+import '../../widgets/PostImageBox.dart';
 
 final SanatanCreationViewModel sanatanCreationCtrl =
     Get.put(SanatanCreationViewModel());
@@ -39,7 +41,7 @@ class _SanatanCreationScreenState extends State<SanatanCreationScreen> {
             return Scaffold(
                 backgroundColor: AppColors.creationScreenBackground,
                 body: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.16),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.16),
                   child: formWidget(context),
                 ));
           } else {
@@ -154,7 +156,8 @@ class _SanatanCreationScreenState extends State<SanatanCreationScreen> {
 
                 /// IMAGE SETTINGS BOX
                 postImageBox(
-                    context: context, isPhoto: postController.getPostType()),
+                    context: context,
+                    isPhoto: sanatanDashboardCtrl.getPostType()),
                 formPadding(),
 
                 /// CANCEL & SUBMIT BUTTON
@@ -164,8 +167,8 @@ class _SanatanCreationScreenState extends State<SanatanCreationScreen> {
                     /// CANCEL BUTTON
                     DynamicButton(
                       text: 'cancel'.tr,
-                      height: Get.width * 0.05,
-                      width: Get.width * 0.3,
+                      height: MediaQuery.of(context).size.width * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       textSize: 16,
                       radius: 50,
                       textColor: Colors.black,
@@ -179,8 +182,8 @@ class _SanatanCreationScreenState extends State<SanatanCreationScreen> {
                     /// SUBMIT BUTTON
                     DynamicButton(
                         text: 'creationTitle'.tr,
-                        height: Get.width * 0.05,
-                        width: Get.width * 0.3,
+                        height: MediaQuery.of(context).size.width * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.3,
                         textSize: 16,
                         radius: 50,
                         textColor: Colors.black,

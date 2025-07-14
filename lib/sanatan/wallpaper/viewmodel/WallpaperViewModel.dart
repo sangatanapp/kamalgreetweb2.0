@@ -6,27 +6,22 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
+import 'package:kamal_greet_web_2/apicalling/ApiCallBaseOption.dart';
 import 'package:kamal_greet_web_2/apicalling/StatusCodeResponse.dart';
 import 'package:kamal_greet_web_2/sanatan/Wallpaper/data/api/WallpaperApi.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanCreationScreen.dart';
+import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
 import 'package:kamal_greet_web_2/sanatan/wallpaper/data/model/SanatanWallpaperModel.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+import '../../../dashboard/view/DashboardScreen.dart';
 
 class WallpaperViewModel extends GetxController {
   Rx<TextEditingController> wallpaperTitleCtrl = TextEditingController().obs;
   RxList<SanatanWallpaperList> sanatanWallpaperList =
       <SanatanWallpaperList>[].obs;
 
-  final api = WallpaperApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = WallpaperApi(apiCallBaseOption());
 
   final rxSanatanWallpaperStatus = Status.INITIAL.obs;
 
@@ -36,18 +31,18 @@ class WallpaperViewModel extends GetxController {
   Future createWallpaper() async {
     EasyLoading.show();
 
-    if (tagController.selectedCategoryList.contains('video')) {
-      await creationVideoUploadCtrl
-          .videoToFirebase(postController.videoPathForFirebase!);
-    }
+    // if (sanatanDashboardCtrl.selectedCategoryList.contains('video')) {
+    //   await creationVideoUploadCtrl
+    //       .videoToFirebase(postController.videoPathForFirebase!);
+    // }
 
     final res =
         await api.createWallpaper("Bearer ${GreetStorage.getAuthToken()!}", {
       "title": wallpaperTitleCtrl.value.text,
-      "post_url": tagController.selectedCategoryList.contains('video')
-          ? postController.videoFirebaseUrl.value
-          : postController.mainPostImage.value,
-      "wallpaper_type": tagController.selectedCategoryList.contains('video')
+      "post_url": sanatanDashboardCtrl.selectedCategoryList.contains('video')
+          ? imageVideoMainCtrl.videoFirebaseUrl.value
+          : imageVideoMainCtrl.mainPostImage.value,
+      "wallpaper_type": sanatanDashboardCtrl.selectedCategoryList.contains('video')
           ? "video"
           : "photo",
       "god_id": sanatanCreationCtrl

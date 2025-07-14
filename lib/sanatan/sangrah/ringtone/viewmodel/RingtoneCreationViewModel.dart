@@ -17,6 +17,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../Utils/widgets/DynamicAppbar.dart';
+import '../../../../apicalling/ApiCallBaseOption.dart';
 
 class RingtoneViewModel extends GetxController {
   Rx<TextEditingController> ringtoneTitleCtrl = TextEditingController().obs;
@@ -33,16 +34,7 @@ class RingtoneViewModel extends GetxController {
   ];
   RxInt sangrahSelectedModule = 0.obs;
 
-  final api = RingtoneApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = RingtoneApi(apiCallBaseOption());
 
   final rxRingtoneStatus = Status.INITIAL.obs;
 

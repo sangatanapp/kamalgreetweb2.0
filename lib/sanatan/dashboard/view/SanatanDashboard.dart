@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
@@ -12,6 +13,8 @@ import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicTextfield.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/GreetingsCard.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/Wallpaper/view/AddWallpaperScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/Wallpaper/viewmodel/WallpaperViewModel.dart';
 import 'package:kamal_greet_web_2/sanatan/darshan/data/model/DarshanModel.dart';
@@ -60,9 +63,7 @@ class SanatanDashboardScreen extends StatefulWidget {
 }
 
 class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
-  final postController = Get.put(CreationViewModel());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final SubCategoryViewModel tagCtr = Get.find();
   Uint8List? selectedImage;
   final controller = Get.put(ConnectivityController());
   double sidebarPadding = 15;
@@ -115,7 +116,7 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                             child: Padding(
                               padding: const EdgeInsets.only(right: 30),
                               child: Container(
-                                width: Get.width * 0.17,
+                                width: MediaQuery.of(context).size.width * 0.17,
                                 decoration:
                                     const BoxDecoration(color: Colors.white),
                                 child: Column(
@@ -134,8 +135,8 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                       textSize:
                                           isMobile ? 8 : sideButtonsTextSize,
                                       onTap: () {
-                                        dashCtr.isGuruVaniDrawer.value = true;
-                                        dashCtr.isGuruVaniDrawer.refresh();
+                                        // dashCtr.isGuruVaniDrawer.value = true;
+                                        // dashCtr.isGuruVaniDrawer.refresh();
                                         _scaffoldKey.currentState?.openDrawer();
                                       },
                                     ),
@@ -152,7 +153,7 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                       textSize:
                                           isMobile ? 8 : sideButtonsTextSize,
                                       onTap: () {
-                                        Get.to(() => PoojaDashboard());
+                                        context.go("/pooja/dashboard");
                                       },
                                     ),
                                   ],
@@ -185,6 +186,7 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                     .selectedModule.value ==
                                                 0
                                             ? sanatanOngoingUpcomingTabs(
+                                                context: context,
                                                 isMobile: isMobile,
                                                 onPress: () {
                                                   sanatanDashboardCtrl
@@ -205,6 +207,7 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                     .selectedModule.value ==
                                                 0
                                             ? sanatanOngoingUpcomingTabs(
+                                                context: context,
                                                 isMobile: isMobile,
                                                 onPress: () {
                                                   sanatanDashboardCtrl
@@ -248,28 +251,31 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                 sanatanCreationCtrl
                                                     .godSelectorController
                                                     .clear();
-                                                postController.cropRatio.value =
-                                                    "1:1";
-                                                postController.startDate.value
-                                                    .clear();
-                                                postController.endDate.value
-                                                    .clear();
-                                                postController
+                                                imageVideoMainCtrl
+                                                    .cropRatio.value = "1:1";
+                                                sanatanCreationCtrl
+                                                    .startDate.text = "";
+                                                sanatanCreationCtrl
+                                                    .endDate.text = "";
+                                                imageVideoMainCtrl
                                                     .mainPostImage.value = "";
-                                                postController.videoFirebaseUrl
+                                                imageVideoMainCtrl
+                                                    .videoFirebaseUrl
                                                     .value = "";
-                                                postController.videoFirebaseUrl
+                                                imageVideoMainCtrl
+                                                    .videoFirebaseUrl
                                                     .refresh();
-                                                postController.videoFirebaseUrl
+                                                imageVideoMainCtrl
+                                                    .videoFirebaseUrl
                                                     .refresh();
-                                                postController.cropRatio
+                                                imageVideoMainCtrl.cropRatio
                                                     .refresh();
-                                                postController.mainPostImage
+                                                imageVideoMainCtrl.mainPostImage
                                                     .refresh();
-                                                postController
+                                                sanatanCreationCtrl
                                                     .sharingContent.value
                                                     .clear();
-                                                postController
+                                                sanatanCreationCtrl
                                                     .titleController.value
                                                     .clear();
 
@@ -280,12 +286,13 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                   wallpaperCtrl
                                                       .wallpaperTitleCtrl.value
                                                       .clear();
-                                                  postController
+                                                  imageVideoMainCtrl
                                                       .mainPostImage.value = "";
-                                                  postController.mainPostImage
+                                                  imageVideoMainCtrl
+                                                      .mainPostImage
                                                       .refresh();
-                                                  Get.to(() =>
-                                                      const AddWallpaperScreen());
+                                                  context.go(
+                                                      '/sanatan/wallpaper/creation');
                                                 } else if (sanatanDashboardCtrl
                                                         .selectedModule.value ==
                                                     3) {
@@ -297,12 +304,13 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                       .clear();
                                                   darshanCtrl.isPremium.value =
                                                       false;
-                                                  postController
+                                                  imageVideoMainCtrl
                                                       .mainPostImage.value = "";
-                                                  postController.mainPostImage
+                                                  imageVideoMainCtrl
+                                                      .mainPostImage
                                                       .refresh();
-                                                  Get.to(() =>
-                                                      const AddDarshanScreen());
+                                                  context.go(
+                                                      '/sanatan/darshan/creation');
                                                 } else if (sanatanDashboardCtrl
                                                         .selectedModule.value ==
                                                     2) {
@@ -316,8 +324,8 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                     aartiCtrl
                                                         .aartiDescTextCtrl.value
                                                         .clear();
-                                                    Get.to(() =>
-                                                        const AartiCreationScreen());
+                                                    context.go(
+                                                        '/sanatan/aarti/creation');
                                                   }
                                                   if (mantraCtrl
                                                           .sangrahSelectedModule
@@ -331,8 +339,8 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                         .clear();
                                                     mantraCtrl
                                                         .firebaseAudioUrl = "";
-                                                    Get.to(() =>
-                                                        const AddMantraScreen());
+                                                    context.go(
+                                                        '/sanatan/mantra/creation');
                                                   }
 
                                                   if (mantraCtrl
@@ -347,8 +355,8 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                         .chaleesaDescTextCtrl
                                                         .value
                                                         .clear();
-                                                    Get.to(() =>
-                                                        const ChaleesaCreationScreen());
+                                                    context.go(
+                                                        '/sanatan/chaleesa/creation');
                                                   }
                                                   if (mantraCtrl
                                                           .sangrahSelectedModule
@@ -362,8 +370,8 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                         .stotraDescTextCtrl
                                                         .value
                                                         .clear();
-                                                    Get.to(() =>
-                                                        const StotraCreationScreen());
+                                                    context.go(
+                                                        '/sanatan/stotra/creation');
                                                   }
                                                   if (mantraCtrl
                                                           .sangrahSelectedModule
@@ -381,12 +389,12 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
                                                     ringtoneCtrl
                                                         .firebaseAudioUrl
                                                         .refresh();
-                                                    Get.to(() =>
-                                                        const RingtoneCreationScreen());
+                                                    context.go(
+                                                        '/sanatan/ringtone/creation');
                                                   }
                                                 } else {
-                                                  Get.to(
-                                                      const SanatanCreationScreen());
+                                                  context
+                                                      .go('/sanatan/creation');
                                                 }
                                               },
                                             ),
@@ -813,371 +821,6 @@ class _SanatanDashboardScreenState extends State<SanatanDashboardScreen> {
         },
       ),
     );
-  }
-
-  Widget programListBuilder(bool isMobile) {
-    final filteredList = dashCtr.listCards!.where((card) {
-      try {
-        final startDate =
-            DateFormat('dd-MM-yy HH:mm').parse(card?.startDate ?? "");
-        final now = DateTime.now();
-
-        if (dashCtr.filterType.value == "ONGOING") {
-          return startDate.isBefore(now) || startDate.isAtSameMomentAs(now);
-        } else {
-          return startDate.isAfter(now);
-        }
-      } catch (e) {
-        print("Error parsing date: $e");
-        return false;
-      }
-    }).toList();
-    if (filteredList.isEmpty) {
-      return Center(
-        child: Card(
-          color: Colors.yellow.shade100,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.warning_amber_rounded,
-                  size: 50,
-                  color: Colors.orange.shade800,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'No Data Available',
-                  style: GoogleFonts.poppins(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-    return ListView.builder(
-      controller: dashCtr.scrollController,
-      shrinkWrap: true,
-      itemCount: filteredList.length,
-      itemBuilder: ((context, index) {
-        final card = filteredList[index];
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: Obx(() {
-            if (dashCtr.rxRequestStatus.value == Status.LOADING) {
-              return const CircularProgressIndicator(); // Show loading indicator
-            }
-
-            return GreetingsCard(
-              isMobile: isMobile,
-              startDate: card?.startDate ?? "",
-              endDate: card?.endDate ?? "",
-              createdAt: card?.createdAt ?? "",
-              name: card?.title ?? "",
-              tag: card?.tagList ?? [],
-              postType: card?.postType,
-              image: card?.postUrl ?? "",
-              status: "ACTIVE",
-              id: card?.id.toString() ?? '',
-              index: index,
-              sharedCount: card?.sharedCount ?? 0,
-              downloadCount: card?.downloadCount ?? 0,
-              isPosition: card?.avatarPostion ?? "",
-              isShape: card?.avatarShape ?? "",
-              isPinned: card?.isPinned ?? false,
-            );
-          }),
-        );
-      }),
-    );
-  }
-
-  void showStateDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0), // Curved border
-          ),
-          child: Container(
-            width: Get.width * 0.2,
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min, // Ensure dialog size is dynamic
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Select State',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () =>
-                          Navigator.pop(context), // Close the dialog
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: dashCtr.stateList.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                          dashCtr.stateList[index].state,
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.black),
-                        ),
-                        onTap: () {
-                          dashCtr.stateId.value =
-                              dashCtr.stateList[index].stateId;
-                          dashCtr.stateName.value =
-                              dashCtr.stateList[index].state;
-
-                          Navigator.pop(context);
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> showTagDialogue(String id) {
-    return showDialog<void>(
-        context: context,
-        builder: ((context) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Colors.white,
-                ),
-                width: 350,
-                height: 280,
-                child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 10),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'addTagName'.tr,
-                            style: GoogleFonts.poppins(
-                              fontSize: AppConstants.titleSize,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 80),
-                            child: DynamicTextfield(
-                              height: 45,
-                              hintText: 'enterName'.tr,
-                              controller: tagCtr.tagNameController.value,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Obx(() {
-                            if (tagCtr.isLoadingTag.value) {
-                              return Shimmer.fromColors(
-                                baseColor: Colors.grey.withOpacity(0.2),
-                                highlightColor: Colors.grey.withOpacity(0.1),
-                                child: Container(
-                                  height: 80,
-                                  width: 80,
-                                  decoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xFFFFA5A8),
-                                        Color(0xFFFFE3F6),
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    ),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: SizedBox(
-                                      height: 80,
-                                      width: 80,
-                                      child: Text('jhghjkl'),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            } else {
-                              return GestureDetector(
-                                onTap: () {
-                                  tagCtr.pickTagImageFromGallery();
-                                },
-                                child: Container(
-                                  color: Colors.white,
-                                  height: 80,
-                                  width: 80,
-                                  child: tagCtr.tagPhotos.value == ""
-                                      ? DottedBorder(
-                                          borderType: BorderType.RRect,
-                                          radius: const Radius.circular(20),
-                                          color: Colors.grey,
-                                          strokeWidth: 1,
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                const Icon(
-                                                  Icons.add_a_photo,
-                                                  color: Colors.black,
-                                                  size: 30,
-                                                ),
-                                                const SizedBox(height: 5),
-                                                Text(
-                                                  'uploadIcon'.tr,
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      : Stack(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(20)),
-                                              child: Image.network(
-                                                tagCtr.tagPhotos.value,
-                                                height: 80,
-                                                width: 80,
-                                                fit: BoxFit.cover,
-                                                errorBuilder: (context, error,
-                                                    stackTrace) {
-                                                  return Center(
-                                                    child: Icon(
-                                                      Icons.image,
-                                                      size: 75,
-                                                      color: AppColors.teal50,
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                            Positioned(
-                                              top: -8,
-                                              right: -8,
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  tagCtr.removeTagImage();
-                                                },
-                                                icon: Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      width: 0.5,
-                                                      color: AppColors.teal50,
-                                                    ),
-                                                    shape: BoxShape.circle,
-                                                    color:
-                                                        const Color(0xFFDC7AA9),
-                                                  ),
-                                                  child: Center(
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      color:
-                                                          AppColors.whiteCard,
-                                                      size: 10,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                ),
-                              );
-                            }
-                          }),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              DynamicButton(
-                                backgroundColor: AppColors.pink,
-                                text: "cancel".tr,
-                                width: 100,
-                                height: 30,
-                                textSize: 14,
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              id == ''
-                                  ? DynamicButton(
-                                      text: 'submit'.tr,
-                                      width: 100,
-                                      height: 30,
-                                      textSize: 14,
-                                      onTap: () {
-                                        tagCtr.createTag();
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  : DynamicButton(
-                                      text: 'update'.tr,
-                                      width: 100,
-                                      height: 30,
-                                      textSize: 14,
-                                      onTap: () {},
-                                    ),
-                            ],
-                          ),
-                        ])),
-              ),
-            ),
-          );
-        }));
   }
 
   Widget title(String title, final isMobile) {

@@ -7,6 +7,7 @@ import 'package:kamal_greet_web_2/sanatan/pooja/data/api/AddDetailsApi.dart';
 import 'package:kamal_greet_web_2/sanatan/pooja/data/model/GetPoojaDetailsModel.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../../apicalling/ApiCallBaseOption.dart';
 import '../view/PoojaDashboard.dart';
 
 class PoojaDetailsViewModel extends GetxController {
@@ -22,16 +23,7 @@ class PoojaDetailsViewModel extends GetxController {
       TextEditingController();
   RxInt selectedTabIndex = 0.obs;
 
-  final api = AddDetailsApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = AddDetailsApi(apiCallBaseOption());
 
   String getRemainingUrl({required String whichTab}) {
     const map = {

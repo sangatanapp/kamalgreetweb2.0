@@ -12,20 +12,12 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../../../Utils/database/GreetStorage.dart';
 import '../../../../Utils/widgets/DynamicAppbar.dart';
+import '../../../../apicalling/ApiCallBaseOption.dart';
 
 class StotraViewModel extends GetxController {
   Rx<TextEditingController> stotraTitleTextCtrl = TextEditingController().obs;
   Rx<TextEditingController> stotraDescTextCtrl = TextEditingController().obs;
-  final api = StotraApi(Dio(BaseOptions(
-      contentType: 'application/json', validateStatus: ((status) => true)))
-    ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90)));
+  final api = StotraApi(apiCallBaseOption());
 
   final rxStotraStatus = Status.INITIAL.obs;
   RxList<StotraListData> stotraList = <StotraListData>[].obs;

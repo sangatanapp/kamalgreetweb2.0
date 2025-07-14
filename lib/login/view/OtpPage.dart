@@ -74,7 +74,7 @@ class OtpPage extends StatelessWidget {
                                     Expanded(
                                         flex: 3,
                                         child: Container(
-                                          width: Get.width,
+                                          width: MediaQuery.of(context).size.width,
                                           child: Image.asset(
                                               'assets/images/BackgroundImageMobile.png',
                                               fit: BoxFit.fill),

@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                               Expanded(
                                   flex: 4,
                                   child: SizedBox(
-                                    width: Get.width,
+                                    width: MediaQuery.of(context).size.width,
                                     child: Image.asset(
                                         'assets/images/BackgroundImageMobile.png',
                                         fit: BoxFit.fill),

@@ -8,7 +8,9 @@ import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicTextfield.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/PaddingGenerator.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
+import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
+import 'package:kamal_greet_web_2/sanatan/widgets/PostImageBox.dart';
 import 'package:kamal_greet_web_2/sanatan/widgets/SanatanGodSelector.dart';
 import 'package:kamal_greet_web_2/sanatan/widgets/SanatanPostTypeSelector.dart';
 import '../../../Utils/values/AppConstants.dart';
@@ -27,7 +29,7 @@ class AddWallpaperScreen extends StatefulWidget {
 class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
   @override
   void initState() {
-    postController.cropRatio.value = "1:1";
+    imageVideoMainCtrl.cropRatio.value = "1:1";
     super.initState();
   }
 
@@ -71,7 +73,7 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: Get.width * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.35,
                     child: Column(
                       children: [
                         creationSubTitle(
@@ -100,10 +102,10 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
 
                   /// IMAGE SETTINGS BOX
                   SizedBox(
-                    width: Get.width * 0.55,
+                    width: MediaQuery.of(context).size.width * 0.55,
                     child: postImageBox(
                         context: context,
-                        isPhoto: postController.getPostType(),
+                        isPhoto: sanatanDashboardCtrl.getPostType(),
                         isFromPoojaWallpaper: true),
                   ),
                 ],
@@ -117,8 +119,8 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
                   /// CANCEL BUTTON
                   DynamicButton(
                     text: 'cancel'.tr,
-                    height: Get.width * 0.05,
-                    width: Get.width * 0.3,
+                    height: MediaQuery.of(context).size.width * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     textSize: 16,
                     radius: 50,
                     textColor: Colors.black,
@@ -132,8 +134,8 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
                   /// SUBMIT BUTTON
                   DynamicButton(
                       text: 'creationTitle'.tr,
-                      height: Get.width * 0.05,
-                      width: Get.width * 0.3,
+                      height: MediaQuery.of(context).size.width * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       textSize: 16,
                       radius: 50,
                       textColor: Colors.black,
@@ -145,7 +147,7 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
                           EasyLoading.showError("Enter title");
                           return;
                         }
-                        if (postController.mainPostImage.value == "") {
+                        if (imageVideoMainCtrl.mainPostImage.value == "") {
                           EasyLoading.showError("Select Image");
                           return;
                         }

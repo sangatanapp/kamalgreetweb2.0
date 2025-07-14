@@ -5,6 +5,7 @@ Dio apiCallBaseOption() {
   return Dio(BaseOptions(
       contentType: 'application/json', validateStatus: ((status) => true)))
     ..interceptors.add(PrettyDioLogger(
+        enabled: false,
         requestHeader: true,
         requestBody: true,
         responseBody: true,

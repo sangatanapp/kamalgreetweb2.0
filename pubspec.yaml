@@ -56,6 +56,10 @@ dependencies:
   firebase_cached_image: ^0.7.0
   dotted_border: ^2.1.0
   fluttertoast: ^8.2.4
+  crop_your_image: ^1.0.2
+  davi: ^4.0.1
+
+
 
 
 dev_dependencies:

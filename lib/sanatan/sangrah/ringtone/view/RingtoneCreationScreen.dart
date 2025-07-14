@@ -36,7 +36,7 @@ class _RingtoneCreationScreenState extends State<RingtoneCreationScreen> {
             return Scaffold(
                 backgroundColor: AppColors.creationScreenBackground,
                 body: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.16),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.16),
                   child: formWidget(context),
                 ));
           } else {
@@ -198,8 +198,8 @@ class _RingtoneCreationScreenState extends State<RingtoneCreationScreen> {
                     /// CANCEL BUTTON
                     DynamicButton(
                       text: 'cancel'.tr,
-                      height: Get.width * 0.05,
-                      width: Get.width * 0.3,
+                      height: MediaQuery.of(context).size.width * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       textSize: 16,
                       radius: 50,
                       textColor: Colors.black,
@@ -213,8 +213,8 @@ class _RingtoneCreationScreenState extends State<RingtoneCreationScreen> {
                     /// SUBMIT BUTTON
                     DynamicButton(
                         text: 'creationTitle'.tr,
-                        height: Get.width * 0.05,
-                        width: Get.width * 0.3,
+                        height: MediaQuery.of(context).size.width * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.3,
                         textSize: 16,
                         radius: 50,
                         textColor: Colors.black,
