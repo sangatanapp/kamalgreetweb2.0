@@ -25,14 +25,21 @@ class DashboardScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           TextButton(
-              onPressed: () => context.push("/payment"),
+              onPressed: () => context.go("/iosuserdata"),
+              child: Text(
+                "Share Post IOS User Data",
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w500, color: Colors.black),
+              )),
+          TextButton(
+              onPressed: () => context.go("/payment"),
               child: Text(
                 "Payment",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w500, color: Colors.black),
               )),
           TextButton(
-              onPressed: () => context.push("/access"),
+              onPressed: () => context.go("/access"),
               child: Text(
                 "Access Setting",
                 style: GoogleFonts.poppins(

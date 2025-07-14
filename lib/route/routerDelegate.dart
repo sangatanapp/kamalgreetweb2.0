@@ -1,3 +1,4 @@
+import 'package:kamal_greet_web_2/IosUserData/view/UserDataScreen.dart';
 import 'package:kamal_greet_web_2/Payment/view/PaymentScreen.dart';
 import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
 import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
@@ -10,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kamal_greet_web_2/sanatan/darshan/view/AddDarshanScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanCreationScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/dashboard/view/SanatanDashboard.dart';
+import 'package:kamal_greet_web_2/sanatan/pooja/view/PoojaBookingList.dart';
 import 'package:kamal_greet_web_2/sanatan/sangrah/aarti/view/AartiCreationScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/sangrah/chaleesa/view/ChaleesaCreationScreen.dart';
 import 'package:kamal_greet_web_2/sanatan/sangrah/mantra/view/MantraCreationScreen.dart';
@@ -52,6 +54,9 @@ GoRouter router = GoRouter(
         path: '/pooja/dashboard',
         builder: (context, state) => const PoojaDashboard()),
     GoRoute(
+        path: '/pooja/booking',
+        builder: (context, state) => const PoojaBookingList()),
+    GoRoute(
         path: '/sanatan/wallpaper/creation',
         builder: (context, state) => const AddWallpaperScreen()),
     GoRoute(
@@ -67,9 +72,6 @@ GoRouter router = GoRouter(
         path: '/sanatan/chaleesa/creation',
         builder: (context, state) => const ChaleesaCreationScreen()),
     GoRoute(
-        path: '/sanatan/chaleesa/creation',
-        builder: (context, state) => const ChaleesaCreationScreen()),
-    GoRoute(
         path: '/sanatan/stotra/creation',
         builder: (context, state) => const StotraCreationScreen()),
     GoRoute(
@@ -79,10 +81,15 @@ GoRouter router = GoRouter(
         path: '/sanatan/creation',
         builder: (context, state) => const SanatanCreationScreen()),
 
-    ///***** Access Setting Routes *****///
+    ///***** Ios User Data Routes *****///
 
     GoRoute(
-        path: '/access', builder: (context, state) => const AccessScreen()),
+        path: '/iosuserdata',
+        builder: (context, state) => const UserDataScreen()),
+
+    ///***** Access Setting Routes *****///
+
+    GoRoute(path: '/access', builder: (context, state) => const AccessScreen()),
 
     ///***** Payment Setting Routes *****///
 

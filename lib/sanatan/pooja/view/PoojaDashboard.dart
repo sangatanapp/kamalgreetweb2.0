@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityWidget.dart';
@@ -53,10 +54,9 @@ class _PoojaDashboardState extends State<PoojaDashboard> {
                   appBar: AppBar(
                     actions: [
                       TextButton(
-                          onPressed: () => Get.to(() => PoojaBookingList()),
-                          child: Text("Pooja Booking List"))
+                          onPressed: () => context.go("/pooja/booking"),
+                          child: const Text("Pooja Booking List"))
                     ],
-
                     centerTitle: true,
                     title: Text(
                       "Pooja",
