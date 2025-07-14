@@ -29,9 +29,9 @@
 //
 //         final videoFile = html.Blob([result.files.single.bytes!], 'video/*');
 //         final videoUrl = html.Url.createObjectUrlFromBlob(videoFile);
-//         postController.selectedVideoPath.value = videoUrl;
+//         postKaroCreationCtrl.selectedVideoPath.value = videoUrl;
 //         loadVideo(videoUrl);
-//         postController.videoPathForFirebase = result.files.single.bytes!;
+//         postKaroCreationCtrl.videoPathForFirebase = result.files.single.bytes!;
 //       }
 //     } catch (e) {
 //       print('ERROR => ${e.toString()}');
@@ -41,20 +41,20 @@
 //   // Future<void> videoToFirebase() async {
 //   //   try {
 //   //     String fileName =
-//   //         "video/postKaroVideo-${postController.endDateString.value}-${const Uuid().v1()}.${file.extension}";
+//   //         "video/postKaroVideo-${postKaroCreationCtrl.endDateString.value}-${const Uuid().v1()}.${file.extension}";
 //   //
 //   //     Map<String, dynamic> uploadResult =
 //   //         await _bunnyCDNService.uploadVideo(file, fileName);
 //   //
 //   //     if (uploadResult['success']) {
 //   //       String videoUrl = _bunnyCDNService.getVideoUrl(fileName);
-//   //       postController.videoFirebaseUrl.value = videoUrl;
+//   //       postKaroCreationCtrl.videoFirebaseUrl.value = videoUrl;
 //   //       print('Video URL from bunny: $videoUrl');
 //   //       print(
-//   //           "Video uploaded successfully: ${postController.videoFirebaseUrl.value}");
+//   //           "Video uploaded successfully: ${postKaroCreationCtrl.videoFirebaseUrl.value}");
 //   //     } else {
-//   //       postController.videoFirebaseUrl.value = "";
-//   //       print("Video not uploaded: ${postController.videoFirebaseUrl.value}");
+//   //       postKaroCreationCtrl.videoFirebaseUrl.value = "";
+//   //       print("Video not uploaded: ${postKaroCreationCtrl.videoFirebaseUrl.value}");
 //   //     }
 //   //   } catch (e) {
 //   //     print("Error uploading video to bunny: $e");
@@ -78,12 +78,12 @@
 //
 //       TaskSnapshot snapshot = await uploadTask;
 //
-//       postController.videoFirebaseUrl.value =
+//       postKaroCreationCtrl.videoFirebaseUrl.value =
 //           await snapshot.ref.getDownloadURL();
 //       EasyLoading.showInfo("Video uploaded successfully");
 //
 //       print(
-//           "Video uploaded successfully: ${postController.videoFirebaseUrl.value}");
+//           "Video uploaded successfully: ${postKaroCreationCtrl.videoFirebaseUrl.value}");
 //     } catch (e) {
 //       print("Error uploading video to Firebase: $e");
 //     }
@@ -92,7 +92,7 @@
 //   Future<String> thumbnailToFirebase(String galleryImage) async {
 //     try {
 //       Uint8List imageData =
-//           base64ToUint8List(postController.mainPostImage.value!);
+//           base64ToUint8List(postKaroCreationCtrl.mainPostImage.value!);
 //
 //       Reference ref =
 //           FirebaseStorage.instanceFor(bucket: "post-karo-b0fe6.appspot.com")
@@ -123,26 +123,26 @@
 //     videoElement.src = videoSrc;
 //
 //     videoElement.onLoadedMetadata.listen((event) {
-//       postController.videoHeight.value = videoElement.videoHeight.toDouble();
-//       postController.videoWidth.value = videoElement.videoWidth.toDouble();
+//       postKaroCreationCtrl.videoHeight.value = videoElement.videoHeight.toDouble();
+//       postKaroCreationCtrl.videoWidth.value = videoElement.videoWidth.toDouble();
 //
-//       if (postController.videoWidth.value != null &&
-//           postController.videoHeight.value != null &&
-//           postController.videoHeight.value != 0) {
-//         postController.videoRatio.value = (postController.videoWidth.value! /
-//                 postController.videoHeight.value!)
+//       if (postKaroCreationCtrl.videoWidth.value != null &&
+//           postKaroCreationCtrl.videoHeight.value != null &&
+//           postKaroCreationCtrl.videoHeight.value != 0) {
+//         postKaroCreationCtrl.videoRatio.value = (postKaroCreationCtrl.videoWidth.value! /
+//                 postKaroCreationCtrl.videoHeight.value!)
 //             .toStringAsFixed(3);
 //       }
 //
 //       videoElement.currentTime = 1;
 //       videoElement.onSeeked.listen((_) {
 //         final canvas = html.CanvasElement(
-//             width: postController.videoWidth.value!.toInt(),
-//             height: postController.videoHeight.value!.toInt());
+//             width: postKaroCreationCtrl.videoWidth.value!.toInt(),
+//             height: postKaroCreationCtrl.videoHeight.value!.toInt());
 //         final ctx = canvas.context2D;
 //         ctx.drawImage(videoElement, 0, 0);
 //
-//         postController.mainPostImage.value = canvas.toDataUrl();
+//         postKaroCreationCtrl.mainPostImage.value = canvas.toDataUrl();
 //       });
 //     });
 //

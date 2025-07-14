@@ -49,7 +49,7 @@ class SanatanCreationViewModel extends GetxController {
     EasyLoading.showInfo('addingCard'.tr);
     // if (sanatanDashboardCtrl.selectedCategoryList.contains('video')) {
     //   await creationVideoUploadCtrl
-    //       .videoToFirebase(postController.videoPathForFirebase!);
+    //       .videoToFirebase(postKaroCreationCtrl.videoPathForFirebase!);
     // }
 
     final res =

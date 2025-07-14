@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kamal_greet_web_2/Postkaro/view/PostkaroDashboard.dart';
 import 'package:kamal_greet_web_2/guruvani/view/GuruvaniDashboard.dart';
 import 'package:uuid/uuid.dart';
 
@@ -57,7 +58,7 @@ class LogoPickerViewModel extends GetxController {
         //     : isFromPoojaThumbnail
         //         ? poojaDashboardCtrl
         //             .uploadPoojaThumbnail(firebaseImageUrl.value)
-        : uploadLogoPhoto(firebaseImageUrl.value);
+        : postKaroDashboardCtrl.uploadLogoPhoto(firebaseImageUrl.value);
   }
 
   void uploadLogoPhoto(String photo) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'AccessApi.dart';
+part of 'PostkaroApi.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'AccessApi.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _AccessApi implements AccessApi {
-  _AccessApi(
+class _PostkaroApi implements PostkaroApi {
+  _PostkaroApi(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,7 +24,7 @@ class _AccessApi implements AccessApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<dynamic>> resetUser(
+  Future<HttpResponse<dynamic>> createPost(
     String token,
     Map<String, dynamic> data,
     String language,
@@ -45,7 +45,7 @@ class _AccessApi implements AccessApi {
     )
         .compose(
           _dio.options,
-          '/api/v2/resetUser',
+          '/api/v2/createCard',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -61,7 +61,7 @@ class _AccessApi implements AccessApi {
   }
 
   @override
-  Future<HttpResponse<dynamic>> enableSubscription(
+  Future<HttpResponse<dynamic>> createTag(
     String token,
     Map<String, dynamic> data,
     String language,
@@ -82,7 +82,7 @@ class _AccessApi implements AccessApi {
     )
         .compose(
           _dio.options,
-          '/api/v2/enableSubscription',
+          '/createTagList',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -98,7 +98,77 @@ class _AccessApi implements AccessApi {
   }
 
   @override
-  Future<HttpResponse<dynamic>> getDisputeData(
+  Future<HttpResponse<dynamic>> getTagList(
+    String token,
+    String language,
+    String category,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'authorization': token,
+      r'language': language,
+    };
+    _headers.removeWhere((k, v) => v == null);
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<dynamic>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/api/v2/getTagList?category=${category}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> updateCard(
+    String token,
+    String id,
+    Map<String, dynamic> data,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(data);
+    final _options = _setStreamType<HttpResponse<dynamic>>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/updateCard/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> createVideoCard(
     String token,
     Map<String, dynamic> data,
     String language,
@@ -119,7 +189,7 @@ class _AccessApi implements AccessApi {
     )
         .compose(
           _dio.options,
-          '/api/v2/getDisputeData',
+          '/postkarovideo/v1/createVideoCard',
           queryParameters: queryParameters,
           data: _data,
         )

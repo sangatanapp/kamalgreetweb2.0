@@ -226,7 +226,7 @@ class CreationImageUploadViewModel extends GetxController {
   }
 }
 // void uploadToFirebase(Uint8List galleryImage) async {
-//   postController.isLoading.value = true;
+//   postKaroCreationCtrl.isLoading.value = true;
 //
 //   Reference ref;
 //
@@ -364,7 +364,7 @@ class CreationImageUploadViewModel extends GetxController {
 //   UploadTask uploadTask =
 //       ref.putData(galleryImage, SettableMetadata(contentType: 'image/jpeg'));
 //   TaskSnapshot snapshot = await uploadTask;
-//   postController.firebaseImageUrl.value = await snapshot.ref.getDownloadURL();
-//   uploadPhoto(postController.firebaseImageUrl.value);
-//   print("i am the firebase url -> ${postController.firebaseImageUrl.value}");
+//   postKaroCreationCtrl.firebaseImageUrl.value = await snapshot.ref.getDownloadURL();
+//   uploadPhoto(postKaroCreationCtrl.firebaseImageUrl.value);
+//   print("i am the firebase url -> ${postKaroCreationCtrl.firebaseImageUrl.value}");
 // }

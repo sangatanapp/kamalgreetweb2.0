@@ -7,12 +7,6 @@ import 'package:kamal_greet_web_2/main.dart';
 
 void handleApiStatus(int statusCode) {
   switch (statusCode) {
-    // case 200:
-    //   EasyLoading.showSuccess("cardAddedSuccessfully".tr);
-    //   final isQuran = dashCtr.selectedApp.value == 3;
-    //   dashCtr.getCard('hi', forFilter: false, from: isQuran ? 'quran' : null);
-    //   Navigator.pop(NavigationService.navigatorKey.currentContext!);
-    //   break;
 
     case 401:
       EasyLoading.showError("Session timeout or Token expired");

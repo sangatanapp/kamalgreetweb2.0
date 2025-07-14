@@ -33,7 +33,7 @@ class WallpaperViewModel extends GetxController {
 
     // if (sanatanDashboardCtrl.selectedCategoryList.contains('video')) {
     //   await creationVideoUploadCtrl
-    //       .videoToFirebase(postController.videoPathForFirebase!);
+    //       .videoToFirebase(postKaroCreationCtrl.videoPathForFirebase!);
     // }
 
     final res =

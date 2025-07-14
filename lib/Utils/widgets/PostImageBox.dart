@@ -22,7 +22,7 @@
 //       children: [
 //         Obx(() => OutlinedButton(
 //               onPressed: () {
-//                 postController.selectOption(option);
+//                 postKaroCreationCtrl.selectOption(option);
 //
 //               },
 //               style: OutlinedButton.styleFrom(
@@ -31,7 +31,7 @@
 //                   borderRadius: BorderRadius.circular(20),
 //                 ),
 //                 backgroundColor:
-//                     postController.selectedAlignment.value == option
+//                     postKaroCreationCtrl.selectedAlignment.value == option
 //                         ? AppColors.positionButton
 //                         : Colors.transparent,
 //               ),
@@ -40,7 +40,7 @@
 //                 child: Text(
 //                   option,
 //                   style: GoogleFonts.poppins(
-//                     color: postController.selectedAlignment.value == option
+//                     color: postKaroCreationCtrl.selectedAlignment.value == option
 //                         ? Colors.white
 //                         : Colors.black,
 //                   ),
@@ -57,14 +57,14 @@
 //       children: [
 //         Obx(() => OutlinedButton(
 //               onPressed: () {
-//                 postController.selectVideoAvtarShapeOption(option);
+//                 postKaroCreationCtrl.selectVideoAvtarShapeOption(option);
 //               },
 //               style: OutlinedButton.styleFrom(
 //                 side: BorderSide(color: Colors.grey.shade200),
 //                 shape: RoundedRectangleBorder(
 //                   borderRadius: BorderRadius.circular(20),
 //                 ),
-//                 backgroundColor: postController.selectedShape.value == option
+//                 backgroundColor: postKaroCreationCtrl.selectedShape.value == option
 //                     ? AppColors.positionButton
 //                     : Colors.transparent,
 //               ),
@@ -73,7 +73,7 @@
 //                 child: Text(
 //                   option,
 //                   style: GoogleFonts.poppins(
-//                     color: postController.selectedShape.value == option
+//                     color: postKaroCreationCtrl.selectedShape.value == option
 //                         ? Colors.white
 //                         : Colors.black,
 //                   ),
@@ -89,7 +89,7 @@
 //       children: [
 //         Obx(() => OutlinedButton(
 //               onPressed: () {
-//                 postController.selectPartyLogoOption(option);
+//                 postKaroCreationCtrl.selectPartyLogoOption(option);
 //               },
 //               style: OutlinedButton.styleFrom(
 //                 side: BorderSide(color: Colors.grey.shade200),
@@ -97,7 +97,7 @@
 //                   borderRadius: BorderRadius.circular(20),
 //                 ),
 //                 backgroundColor:
-//                     postController.selectedPartyLogoOption.value == option
+//                     postKaroCreationCtrl.selectedPartyLogoOption.value == option
 //                         ? AppColors.positionButton
 //                         : Colors.transparent,
 //               ),
@@ -107,7 +107,7 @@
 //                   option,
 //                   style: GoogleFonts.poppins(
 //                     color:
-//                         postController.selectedPartyLogoOption.value == option
+//                         postKaroCreationCtrl.selectedPartyLogoOption.value == option
 //                             ? Colors.white
 //                             : Colors.black,
 //                   ),
@@ -143,7 +143,7 @@
 //       padding: const EdgeInsets.only(right: 5),
 //       child: OutlinedButton(
 //         onPressed: () {
-//           postController.cropRatio.value = ratio;
+//           postKaroCreationCtrl.cropRatio.value = ratio;
 //         },
 //         style: OutlinedButton.styleFrom(
 //           side: BorderSide(color: Colors.grey.shade200),
@@ -152,7 +152,7 @@
 //           ),
 //           backgroundColor: isVideo
 //               ? AppColors.positionButton
-//               : (postController.cropRatio.value == ratio
+//               : (postKaroCreationCtrl.cropRatio.value == ratio
 //                   ? AppColors.positionButton
 //                   : Colors.white),
 //           minimumSize: Size(60, 30),
@@ -163,7 +163,7 @@
 //             fontSize: MediaQuery.of(context).size.width > 600 ? 14 : 10,
 //             color: isVideo
 //                 ? Colors.white
-//                 : (postController.cropRatio.value == ratio
+//                 : (postKaroCreationCtrl.cropRatio.value == ratio
 //                     ? Colors.white
 //                     : Colors.grey),
 //           ),
@@ -195,7 +195,7 @@
 //       return Visibility(
 //         visible: true,
 //         child: creationSubTitle('selectRatio'.tr,
-//             ratioChip(postController.videoRatio.value), false),
+//             ratioChip(postKaroCreationCtrl.videoRatio.value), false),
 //       );
 //     }
 //   }
@@ -214,7 +214,7 @@
 //         children: [
 //           /// IMAGE BOX
 //           Obx(() {
-//             if (postController.isLoading.value) {
+//             if (postKaroCreationCtrl.isLoading.value) {
 //               return Flexible(
 //                 flex: 1,
 //                 child: Shimmer.fromColors(
@@ -257,7 +257,7 @@
 //                                 'video') {
 //                               creationVideoUploadCtrl.pickVideoFromGallery();
 //                             } else {
-//                               postController.cropRatio.value == ""
+//                               postKaroCreationCtrl.cropRatio.value == ""
 //                                   ? EasyLoading.showError("selectRatio".tr)
 //                                   : imageConverterViewModel.pickAndConvertImage(
 //                                       isFromPoojaWallpaper:
@@ -268,7 +268,7 @@
 //                             color: Colors.white,
 //                             height: 220,
 //                             width: 220,
-//                             child: postController.mainPostImage.value == ""
+//                             child: postKaroCreationCtrl.mainPostImage.value == ""
 //                                 ? Container(
 //                                     decoration: BoxDecoration(
 //                                         borderRadius: BorderRadius.circular(12),
@@ -312,7 +312,7 @@
 //                                       ClipRRect(
 //                                         borderRadius: BorderRadius.circular(10),
 //                                         child: Image.network(
-//                                           postController.mainPostImage.value,
+//                                           postKaroCreationCtrl.mainPostImage.value,
 //                                           height: 200,
 //                                           width: 220,
 //                                           fit: BoxFit.cover,
