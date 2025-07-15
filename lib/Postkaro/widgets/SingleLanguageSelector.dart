@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:kamal_greet_web_2/Postkaro/view/PostkaroDashboard.dart';
 import '../../../Utils/widgets/DynamicDropdown.dart';
 
 Widget singleLanguageSelector() {
@@ -7,21 +8,25 @@ Widget singleLanguageSelector() {
     children: [
       Expanded(
         child: DynamicDropdown(
-            length: dashCtr.languageNameList.length,
+            length: postKaroDashboardCtrl.languageNameList.length,
             labelText: 'selectLanguage'.tr,
-            selectedValue: dashCtr.languageName.value,
+            selectedValue: postKaroDashboardCtrl.languageName.value,
             hintText: 'selectLanguage'.tr,
-            dropDownList: dashCtr.languageNameList,
+            dropDownList: postKaroDashboardCtrl.languageNameList,
             onChange: (value) {
-              int selectedIndex = dashCtr.languageNameList.indexOf(value);
-              dashCtr.languageName.value =
-                  dashCtr.languageNameList[selectedIndex];
-              dashCtr.languageShortName.value =
-                  dashCtr.languageList[selectedIndex].languageCode;
+              int selectedIndex =
+                  postKaroDashboardCtrl.languageNameList.indexOf(value);
+              postKaroDashboardCtrl.languageName.value =
+                  postKaroDashboardCtrl.languageNameList[selectedIndex];
+              postKaroDashboardCtrl.languageShortName.value =
+                  postKaroDashboardCtrl
+                      .languageList[selectedIndex].languageCode;
 
-              dashCtr.languageId.value =
-                  dashCtr.languageList[selectedIndex].id.toString();
-              tagController.getTagList(dashCtr.languageShortName.value);
+              postKaroDashboardCtrl.languageId.value = postKaroDashboardCtrl
+                  .languageList[selectedIndex].id
+                  .toString();
+              subCategoryCtrl
+                  .getTagList(postKaroDashboardCtrl.languageShortName.value);
             }),
       ),
     ],

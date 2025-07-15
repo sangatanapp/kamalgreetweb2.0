@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:kamal_greet_web_2/Postkaro/data/api/PostkaroApi.dart';
+import 'package:kamal_greet_web_2/Postkaro/data/model/DashModel.dart';
+import 'package:kamal_greet_web_2/Postkaro/data/model/LanguageModel.dart';
 import 'package:kamal_greet_web_2/Postkaro/data/model/PartyListModel.dart';
 import 'package:kamal_greet_web_2/Postkaro/data/model/StateByPartyIdModel.dart';
 import 'package:kamal_greet_web_2/Postkaro/data/model/StateListModel.dart';
+import 'package:kamal_greet_web_2/Postkaro/view/PostkaroDashboard.dart';
 import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
 import 'package:kamal_greet_web_2/apicalling/ApiCallBaseOption.dart';
 import 'package:kamal_greet_web_2/apicalling/StatusCodeResponse.dart';
 import 'package:kamal_greet_web_2/dashboard/view/DashboardScreen.dart';
 import 'package:kamal_greet_web_2/main.dart';
+import 'package:retrofit/retrofit.dart';
 import 'package:uuid/uuid.dart';
 
 import '../data/model/PartyModel.dart';
@@ -70,6 +74,27 @@ class PostKaroDashboardViewModel extends GetxController {
     }
     final movedItem = partyMember.removeAt(oldIndex);
     partyMember.insert(newIndex, movedItem);
+  }
+
+  Future getWebPartyList() async {
+    try {
+      final res = await api.getWebPartyList(
+          "Bearer ${GreetStorage.getAuthToken()!}", "hi");
+      partyList = [];
+      partyNameList.value = [];
+
+      if (res.response.statusCode == 200) {
+        PartyListModal model = PartyListModal.fromJson(res.data);
+        partyList = model.data;
+        partyNameList.value =
+            partyList.map((party) => party.partyName).toList();
+      } else if (res.response.statusCode == 401) {
+        handleApiStatus(401);
+      } else {
+        EasyLoading.showError(
+            "${res.response.statusCode} ${res.response.statusMessage}");
+      }
+    } catch (e) {}
   }
 
   Future createParty() async {
@@ -272,6 +297,7 @@ class PostKaroDashboardViewModel extends GetxController {
     isLoadingMore.value = false;
     update();
   }
+
   void setParty({
     required String nameOfState,
     required int idOfState,
@@ -287,5 +313,129 @@ class PostKaroDashboardViewModel extends GetxController {
     logoPhoto.value = logo;
     partyMember.value = membersList!;
     partyMember.refresh();
+  }
+
+  final rxRequestStatus = Status.INITIAL.obs;
+  RxList<PostDatum?>? listCards = <PostDatum>[].obs;
+
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
+  Future getCard(String languageCode,
+      {required forFilter, String? tagId, String? from}) async {
+    setRxRequestStatus(Status.LOADING);
+    HttpResponse<dynamic> res;
+    try {
+      if (forFilter == true) {
+        res = await api.getFilteredCards(
+            "Bearer ${GreetStorage.getAuthToken()!}",
+            languageCode,
+            tagId!,
+            subCategoryCtrl.categorySelected.value);
+      } else {
+        if (subCategoryCtrl.categorySelected.value == 'frame') {
+          res = await api.getFrameCards(
+              "Bearer ${GreetStorage.getAuthToken()!}",
+              languageCode,
+              '0',
+              subCategoryCtrl.categorySelected.value);
+        } else {
+          res = await api.getCards(
+              "Bearer ${GreetStorage.getAuthToken()!}", languageCode);
+        }
+      }
+
+      if (res.response.statusCode == 200) {
+        DashModel model = DashModel.fromJson(res.data);
+        model.postData?.forEach((element) {
+          element.isSelectedForDeletion = false;
+        });
+        print(" i am post data - > ${model.postData?.length}");
+        listCards?.value = model.postData!;
+        setRxRequestStatus(Status.COMPLETED);
+        getLanguageList();
+        // dashCtr.tagCtr.getTagList('all');
+      } else if (res.response.statusCode == 401) {
+        handleApiStatus(401);
+      } else {
+        setRxRequestStatus(Status.ERROR);
+        EasyLoading.showError(
+            "${res.response.statusCode} ${res.response.statusMessage}");
+      }
+    } catch (e) {
+      setRxRequestStatus(Status.ERROR);
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  /// LANGUAGE LIST API
+  List<LanguageList> languageList = [];
+  RxList<String> languageNameList = <String>[].obs;
+  RxString languageId = "0".obs;
+  RxString languageShortName = "en".obs;
+  RxString languageName = "".obs;
+
+  Future getLanguageList() async {
+    try {
+      final res = await api.getLanguageList(
+          "Bearer ${GreetStorage.getAuthToken()!}", 'hi');
+      languageList = [];
+      languageNameList.value = [];
+      if (res.response.statusCode == 200) {
+        LanguageModel model = LanguageModel.fromJson(res.data);
+        languageList = model.data;
+        languageNameList.value =
+            languageList.map((language) => language.language).toList();
+      } else if (res.response.statusCode == 401) {
+        handleApiStatus(401);
+      } else {
+        EasyLoading.showError(
+            "${res.response.statusCode} ${res.response.statusMessage}");
+      }
+    } catch (e) {}
+  }
+
+  Future deleteCard(int id) async {
+    EasyLoading.showToast("Deleting Card...");
+
+    final res = await api.deleteCard(
+        "Bearer ${GreetStorage.getAuthToken()!}", id, "hi");
+    try {
+      if (res.response.statusCode == 200) {
+        refresh();
+        EasyLoading.showSuccess("Card Deleted Successfully!");
+        await getCard('hi', forFilter: false);
+      } else if (res.response.statusCode == 401) {
+        handleApiStatus(401);
+      } else {
+        EasyLoading.showError(
+            "${res.response.statusCode} ${res.response.statusMessage}");
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  Future callPinPostApi(String passedPostId, bool pinValue) async {
+    EasyLoading.showInfo('Pinning Post...');
+    var data = {"postId": passedPostId, "is_pinned": pinValue};
+    final res =
+        await api.pinPost("Bearer ${GreetStorage.getAuthToken()!}", data);
+    if (res.response.statusCode == 200) {
+      int index = listCards?.indexWhere(
+              (element) => element?.id.toString() == passedPostId) ??
+          0;
+      listCards![index]!.isPinned = pinValue;
+      listCards?.refresh();
+      EasyLoading.showSuccess('Updated Successfully!');
+    } else if (res.response.statusCode == 401) {
+      handleApiStatus(401);
+    } else {
+      EasyLoading.showError(
+          "${res.response.statusCode} ${res.response.statusMessage}");
+    }
   }
 }

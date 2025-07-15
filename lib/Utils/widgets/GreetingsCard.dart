@@ -94,9 +94,7 @@ class _GreetingsCardState extends State<GreetingsCard> {
     final dataUrl = canvas.toDataUrl('image/jpeg');
 
     final blob = html.Blob([
-      Uint8List.fromList(html.window
-          .atob(dataUrl.split(',')[1]!)
-          .codeUnits)
+      Uint8List.fromList(html.window.atob(dataUrl.split(',')[1]!).codeUnits)
     ]);
 
     final reader = html.FileReader();
@@ -121,14 +119,8 @@ class _GreetingsCardState extends State<GreetingsCard> {
     List<String> tagIds = widget.tag.map((id) => id.toString()).toList();
 
     return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width * 0.4,
-      height: MediaQuery
-          .of(context)
-          .size
-          .height * 0.32,
+      width: MediaQuery.of(context).size.width * 0.4,
+      height: MediaQuery.of(context).size.height * 0.32,
       child: Stack(
         children: [
           Row(
@@ -140,16 +132,10 @@ class _GreetingsCardState extends State<GreetingsCard> {
                 child: Container(
                   width: widget.isMobile
                       ? 150
-                      : MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.13,
+                      : MediaQuery.of(context).size.width * 0.13,
                   height: widget.isMobile
                       ? 150
-                      : MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.18,
+                      : MediaQuery.of(context).size.width * 0.18,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Colors.grey.shade700, width: 0.5),
@@ -159,52 +145,52 @@ class _GreetingsCardState extends State<GreetingsCard> {
                   ),
                   child: widget.image == ""
                       ? Center(
-                    child: Icon(
-                      Icons.image,
-                      size: 80,
-                      color: AppColors.teal50,
-                    ),
-                  )
-                  // : widget.postType == PostType.VIDEO
-                  //     ? thumbnailBytes != null
-                  //         ? ClipRRect(
-                  //             borderRadius: BorderRadius.only(
-                  //                 topLeft: Radius.circular(cardRadius),
-                  //                 bottomLeft: Radius.circular(cardRadius)),
-                  //             child: Image.memory(
-                  //               thumbnailBytes!,
-                  //               fit: BoxFit.fill,
-                  //               errorBuilder: (context, error, stackTrace) {
-                  //                 return Center(
-                  //                   child: Icon(
-                  //                     Icons.image,
-                  //                     size: 75,
-                  //                     color: AppColors.teal50,
-                  //                   ),
-                  //                 );
-                  //               },
-                  //             ),
-                  //           )
-                  //         : const SizedBox.shrink()
-                      : ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(cardRadius),
-                        bottomLeft: Radius.circular(cardRadius)),
-                    child: Image.network(
-                      widget.image,
-                      fit: BoxFit.fill,
-                      alignment: Alignment.topCenter,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Center(
                           child: Icon(
                             Icons.image,
-                            size: 75,
+                            size: 80,
                             color: AppColors.teal50,
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                        )
+                      // : widget.postType == PostType.VIDEO
+                      //     ? thumbnailBytes != null
+                      //         ? ClipRRect(
+                      //             borderRadius: BorderRadius.only(
+                      //                 topLeft: Radius.circular(cardRadius),
+                      //                 bottomLeft: Radius.circular(cardRadius)),
+                      //             child: Image.memory(
+                      //               thumbnailBytes!,
+                      //               fit: BoxFit.fill,
+                      //               errorBuilder: (context, error, stackTrace) {
+                      //                 return Center(
+                      //                   child: Icon(
+                      //                     Icons.image,
+                      //                     size: 75,
+                      //                     color: AppColors.teal50,
+                      //                   ),
+                      //                 );
+                      //               },
+                      //             ),
+                      //           )
+                      //         : const SizedBox.shrink()
+                      : ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(cardRadius),
+                              bottomLeft: Radius.circular(cardRadius)),
+                          child: Image.network(
+                            widget.image,
+                            fit: BoxFit.fill,
+                            alignment: Alignment.topCenter,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Center(
+                                child: Icon(
+                                  Icons.image,
+                                  size: 75,
+                                  color: AppColors.teal50,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                 ),
               ),
               Flexible(
@@ -222,7 +208,6 @@ class _GreetingsCardState extends State<GreetingsCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-
                         /// UI
                         Expanded(
                           flex: 3,
@@ -233,7 +218,7 @@ class _GreetingsCardState extends State<GreetingsCard> {
                               Flexible(
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Flexible(
                                       flex: 5,
@@ -323,16 +308,15 @@ class _GreetingsCardState extends State<GreetingsCard> {
                                               return Container(
                                                 constraints: BoxConstraints(
                                                   maxWidth:
-                                                  MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .width /
-                                                      2,
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          2,
                                                 ),
                                                 padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 8,
-                                                    vertical: 4),
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8,
+                                                        vertical: 4),
                                                 decoration: BoxDecoration(
                                                   color: AppColors.teal50,
                                                   // border: Border.all(
@@ -340,7 +324,7 @@ class _GreetingsCardState extends State<GreetingsCard> {
                                                   //   color: Colors.grey,
                                                   // ),
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                 ),
                                                 child: Text(
                                                   tagname.toString(),
@@ -350,7 +334,7 @@ class _GreetingsCardState extends State<GreetingsCard> {
                                                         : 10,
                                                     fontWeight: FontWeight.w400,
                                                     color:
-                                                    AppColors.primaryColor,
+                                                        AppColors.primaryColor,
                                                   ),
                                                 ),
                                               );
@@ -361,20 +345,19 @@ class _GreetingsCardState extends State<GreetingsCard> {
                                               return Container(
                                                 constraints: BoxConstraints(
                                                   maxWidth:
-                                                  MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .width /
-                                                      2,
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          2,
                                                 ),
                                                 padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 4,
-                                                    vertical: 4),
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 4,
+                                                        vertical: 4),
                                                 decoration: BoxDecoration(
                                                   color: AppColors.primaryColor,
                                                   borderRadius:
-                                                  BorderRadius.circular(8),
+                                                      BorderRadius.circular(8),
                                                 ),
                                                 child: Text(
                                                   '+$remainingCount more',
@@ -475,7 +458,7 @@ class _GreetingsCardState extends State<GreetingsCard> {
       final dateFormat = DateFormat('dd-MM-yyyy HH:mm');
       final parsedDate = dateFormat.parse(dateString);
       final formattedDate =
-      DateFormat('dd MMM yyyy, hh:mm a').format(parsedDate);
+          DateFormat('dd MMM yyyy, hh:mm a').format(parsedDate);
       return formattedDate;
     } catch (e) {
       return '';
@@ -485,9 +468,9 @@ class _GreetingsCardState extends State<GreetingsCard> {
   Flexible rowMaker(List<Widget> child) {
     return Flexible(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: child,
-        ));
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: child,
+    ));
   }
 
   Align richTextMaker(IconData iconName, String titlePrefix, String title) {
@@ -502,7 +485,7 @@ class _GreetingsCardState extends State<GreetingsCard> {
           padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
           child: Row(
             mainAxisSize:
-            MainAxisSize.min, // Make Row only as wide as its content
+                MainAxisSize.min, // Make Row only as wide as its content
             children: [
               Icon(
                 iconName,
@@ -585,27 +568,15 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
 
   @override
   Widget build(BuildContext context) {
-    double hoverWidth = widget.isMobile ? MediaQuery
-        .of(context)
-        .size
-        .width * 0.15 : MediaQuery
-        .of(context)
-        .size
-        .width * 0.2;
-    double noHoverWidth = widget.isMobile ? MediaQuery
-        .of(context)
-        .size
-        .width * 0.01 : MediaQuery
-        .of(context)
-        .size
-        .width * 0.04;
-    double height = widget.isMobile ? MediaQuery
-        .of(context)
-        .size
-        .width * 0.01 : MediaQuery
-        .of(context)
-        .size
-        .width * 0.04;
+    double hoverWidth = widget.isMobile
+        ? MediaQuery.of(context).size.width * 0.15
+        : MediaQuery.of(context).size.width * 0.2;
+    double noHoverWidth = widget.isMobile
+        ? MediaQuery.of(context).size.width * 0.01
+        : MediaQuery.of(context).size.width * 0.04;
+    double height = widget.isMobile
+        ? MediaQuery.of(context).size.width * 0.01
+        : MediaQuery.of(context).size.width * 0.04;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -623,7 +594,7 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
               decoration: BoxDecoration(
                 color: widget.isPinned ? AppColors.primaryColor : Colors.white,
                 border:
-                Border.all(width: 0.5, color: AppColors.deleteEditButton),
+                    Border.all(width: 0.5, color: AppColors.deleteEditButton),
                 borderRadius: BorderRadius.circular(widget.cardRadius),
               ),
               child: SizedBox(
@@ -726,7 +697,6 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
             ),
           ),
         ),
-
         const SizedBox(
           height: 10,
         ),
@@ -742,7 +712,7 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
                 decoration: BoxDecoration(
                   color: AppColors.whiteCard,
                   border:
-                  Border.all(width: 0.5, color: AppColors.deleteEditButton),
+                      Border.all(width: 0.5, color: AppColors.deleteEditButton),
                   borderRadius: BorderRadius.circular(widget.cardRadius),
                 ),
                 child: Center(
@@ -824,7 +794,7 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
                                     onTap: () {
                                       dashboardCtrl.whichApp == "guruvani"
                                           ? guruvaniCtrl
-                                          .deleteCard(int.parse(widget.id))
+                                              .deleteCard(int.parse(widget.id))
                                           : null;
                                       Navigator.pop(context);
                                     },
@@ -868,7 +838,7 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
               decoration: BoxDecoration(
                 color: AppColors.whiteCard,
                 border:
-                Border.all(width: 0.5, color: AppColors.deleteEditButton),
+                    Border.all(width: 0.5, color: AppColors.deleteEditButton),
                 borderRadius: BorderRadius.circular(widget.cardRadius),
               ),
               child: Icon(

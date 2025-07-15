@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kamal_greet_web_2/Postkaro/view/PostkaroDashboard.dart';
+import 'package:kamal_greet_web_2/Utils/ImageVideoUploader/viewmodel/CreationImageUploadViewModel.dart';
+import 'package:kamal_greet_web_2/webp/viewmodels/image_viewmodel.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../Utils/values/AppColors.dart';
-
-final CreationImageUploadViewModel creationImageUploadCtrl =
-    Get.put(CreationImageUploadViewModel());
 
 final ImageConverterViewModel imageConverterViewModel =
     Get.put(ImageConverterViewModel());
 
-Widget postImageBox(
-    {required BuildContext context,
-    required bool isPhoto,
-    bool isFromPoojaWallpaper = false}) {
-  Widget buildOption(String option) {
-    final postKaroCreationCtrl = Get.put(CreationViewModel());
+Widget postImageBox({required BuildContext context, required bool isPhoto}) {
+  final CreationImageUploadViewModel creationImageUploadCtrl =
+      Get.put(CreationImageUploadViewModel());
 
+  Widget buildOption(String option) {
     return Row(
       children: [
         Obx(() => OutlinedButton(
@@ -39,9 +37,10 @@ Widget postImageBox(
                 child: Text(
                   option,
                   style: GoogleFonts.poppins(
-                    color: postKaroCreationCtrl.selectedAlignment.value == option
-                        ? Colors.white
-                        : Colors.black,
+                    color:
+                        postKaroCreationCtrl.selectedAlignment.value == option
+                            ? Colors.white
+                            : Colors.black,
                   ),
                 ),
               ),
@@ -51,8 +50,6 @@ Widget postImageBox(
   }
 
   Widget buildVideoAvtarShapeOption(String option) {
-    final postKaroCreationCtrl = Get.put(CreationViewModel());
-
     return Row(
       children: [
         Obx(() => OutlinedButton(
@@ -64,9 +61,10 @@ Widget postImageBox(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                backgroundColor: postKaroCreationCtrl.selectedShape.value == option
-                    ? AppColors.positionButton
-                    : Colors.transparent,
+                backgroundColor:
+                    postKaroCreationCtrl.selectedShape.value == option
+                        ? AppColors.positionButton
+                        : Colors.transparent,
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
@@ -85,8 +83,6 @@ Widget postImageBox(
   }
 
   Widget buildPartyLogoOption(String option) {
-    final postKaroCreationCtrl = Get.put(CreationViewModel());
-
     return Row(
       children: [
         Obx(() => OutlinedButton(
@@ -108,10 +104,10 @@ Widget postImageBox(
                 child: Text(
                   option,
                   style: GoogleFonts.poppins(
-                    color:
-                        postKaroCreationCtrl.selectedPartyLogoOption.value == option
-                            ? Colors.white
-                            : Colors.black,
+                    color: postKaroCreationCtrl.selectedPartyLogoOption.value ==
+                            option
+                        ? Colors.white
+                        : Colors.black,
                   ),
                 ),
               ),
@@ -177,7 +173,7 @@ Widget postImageBox(
   Widget ratioWidget(bool isPhoto) {
     if (isPhoto) {
       return Visibility(
-        // visible: tagController.categorySelected.value != 'video',
+        // visible: subCategoryCtrl.categorySelected.value != 'video',
         visible: false,
         child: creationSubTitle(
             'selectRatio'.tr,
@@ -253,24 +249,24 @@ Widget postImageBox(
                         "uploadPost".tr,
                         GestureDetector(
                           onTap: () {
-                            print(
-                                'LANGUage ${dashCtr.languageShortName.value}');
-                            if (tagController.categorySelected.value ==
+                            // print(
+                            //     'LANGUage ${dashCtr.languageShortName.value}');
+                            if (subCategoryCtrl.categorySelected.value ==
                                 'video') {
-                              creationVideoUploadCtrl.pickVideoFromGallery();
+                              // creationVideoUploadCtrl.pickVideoFromGallery();
                             } else {
                               postKaroCreationCtrl.cropRatio.value == ""
                                   ? EasyLoading.showError("selectRatio".tr)
-                                  : imageConverterViewModel.pickAndConvertImage(
-                                      isFromPoojaWallpaper:
-                                          isFromPoojaWallpaper);
+                                  : imageConverterViewModel
+                                      .pickAndConvertImage();
                             }
                           },
                           child: Container(
                             color: Colors.white,
                             height: 220,
                             width: 220,
-                            child: postKaroCreationCtrl.mainPostImage.value == ""
+                            child: postKaroCreationCtrl.mainPostImage.value ==
+                                    ""
                                 ? Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(12),
@@ -314,7 +310,8 @@ Widget postImageBox(
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.network(
-                                          postKaroCreationCtrl.mainPostImage.value,
+                                          postKaroCreationCtrl
+                                              .mainPostImage.value,
                                           height: 200,
                                           width: 220,
                                           fit: BoxFit.cover,
@@ -375,7 +372,7 @@ Widget postImageBox(
               children: [
                 /// Party Logo POSITION
                 Visibility(
-                  visible: tagController.fieldNameMapping.value
+                  visible: subCategoryCtrl.fieldNameMapping.value
                       .contains('political'),
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20),
@@ -404,7 +401,7 @@ Widget postImageBox(
 
                 /// AVATAR POSITION
                 Visibility(
-                  visible: tagController.categorySelected.value != 'video',
+                  visible: subCategoryCtrl.categorySelected.value != 'video',
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: creationSubTitle(
@@ -424,7 +421,7 @@ Widget postImageBox(
 
                 /// video avtar position
                 Visibility(
-                  visible: tagController.categorySelected.value == 'video',
+                  visible: subCategoryCtrl.categorySelected.value == 'video',
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: creationSubTitle(
@@ -448,7 +445,7 @@ Widget postImageBox(
 
                 /// video avtar position
                 Visibility(
-                  visible: tagController.categorySelected.value == 'video',
+                  visible: subCategoryCtrl.categorySelected.value == 'video',
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: creationSubTitle(

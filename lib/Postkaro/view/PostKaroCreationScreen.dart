@@ -1,12 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamal_greet_web_2/Postkaro/view/PostkaroDashboard.dart';
-import 'package:kamal_greet_web_2/Postkaro/viewmodel/PostKaroCreationViewModel.dart';
 import 'package:kamal_greet_web_2/Postkaro/widgets/CategorySelector.dart';
 import 'package:kamal_greet_web_2/Postkaro/widgets/NotificationBox.dart';
 import 'package:kamal_greet_web_2/Postkaro/widgets/PartySelector.dart';
+import 'package:kamal_greet_web_2/Postkaro/widgets/PostImageBox.dart';
 import 'package:kamal_greet_web_2/Postkaro/widgets/SingleLanguageSelector.dart';
 import 'package:kamal_greet_web_2/Postkaro/widgets/SubCategorySelector.dart';
 import 'package:kamal_greet_web_2/Postkaro/widgets/WishesAlignmentBox.dart';
@@ -19,7 +18,6 @@ import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
 import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
 import '../../Utils/internet/ConnectivityController.dart';
 import '../../Utils/values/AppColors.dart';
-import '../../Utils/widgets/DynamicAppbar.dart';
 import '../../Utils/widgets/DynamicButton.dart';
 import '../../Utils/widgets/DynamicTextfield.dart';
 
@@ -37,58 +35,52 @@ class _CreationScreenState extends State<CreationScreen> {
   void initState() {
     postKaroCreationCtrl.isLoading.value = false;
     postKaroCreationCtrl.isLoading.refresh();
-    quranViewCtrl.selectedQuranCountry = "";
-    quranViewCtrl.selectedQuranCountryLanguage = "";
-    dashCtr.languageShortName.value = '';
+    postKaroDashboardCtrl.languageShortName.value = '';
     postKaroCreationCtrl.cropRatio.value = "1:1";
-    postKaroCreationCtrl.finalPartyLogo.value = "";
-    postKaroCreationCtrl.finalNamePlate.value = "";
-    postKaroCreationCtrl.finalBackground.value = "";
-    postKaroCreationCtrl.finalPartyName.value = "";
-    postKaroCreationCtrl.selectedPartyLogo.value = -1;
-    postKaroCreationCtrl.selectedNamePlate.value = -1;
-    postKaroCreationCtrl.selectedBackground.value = -1;
-    postKaroCreationCtrl.startDateString.value = '';
-    postKaroCreationCtrl.startTimeString.value = '';
-    postKaroCreationCtrl.endDateString.value = '';
-    postKaroCreationCtrl.endTimeString.value = '';
+    // postKaroCreationCtrl.finalPartyLogo.value = "";
+    // postKaroCreationCtrl.finalNamePlate.value = "";
+    // postKaroCreationCtrl.finalBackground.value = "";
+    // postKaroCreationCtrl.finalPartyName.value = "";
+    // postKaroCreationCtrl.selectedPartyLogo.value = -1;
+    // postKaroCreationCtrl.selectedNamePlate.value = -1;
+    // postKaroCreationCtrl.selectedBackground.value = -1;
+    // postKaroCreationCtrl.startDateString.value = '';
+    // postKaroCreationCtrl.startTimeString.value = '';
+    // postKaroCreationCtrl.endDateString.value = '';
+    // postKaroCreationCtrl.endTimeString.value = '';
     postKaroCreationCtrl.selectedPartyNameList.value = [];
     postKaroCreationCtrl.partyIdList.value = [];
     postKaroCreationCtrl.selectedPartyNameList.refresh();
     postKaroCreationCtrl.partyIdList.refresh();
-    postKaroCreationCtrl.whichAppSelected.value = "postkaro";
-    postKaroCreationCtrl.whichAppSelected.refresh();
-    tagController.selectedGuruName.value = [];
-    tagController.selectedGuruId.value = [];
 
     Timer(const Duration(milliseconds: 2), () {
-      dashCtr.stateName.value = '';
-      dashCtr.stateId.value = 0;
-      dashCtr.languageName.value = '';
-      dashCtr.languageId.value = '0';
-      dashCtr.languageShortName.value = '';
-      dashCtr.selectedLanguageList.value = [];
-      dashCtr.selectedStateList.value = [];
+      // sub.stateName.value = '';
+      // dashCtr.stateId.value = 0;
+      // dashCtr.languageName.value = '';
+      // dashCtr.languageId.value = '0';
+      // dashCtr.languageShortName.value = '';
+      // dashCtr.selectedLanguageList.value = [];
+      // dashCtr.selectedStateList.value = [];
       postKaroCreationCtrl.partyList = [];
-      tagController.allSuggestions.clear();
-      tagController.selectedCategoryList.value.clear();
-      tagController.categorySelected.value = 'post';
-      tagController.selectedCategoryList.value.add('post');
+      subCategoryCtrl.allSuggestions.clear();
+      subCategoryCtrl.selectedCategoryList.value.clear();
+      subCategoryCtrl.categorySelected.value = 'post';
+      subCategoryCtrl.selectedCategoryList.value.add('post');
       // postKaroCreationCtrl.whichAppSelected.value = '';
       postKaroCreationCtrl.videoRatio.value = '1';
       postKaroCreationCtrl.videoPathForFirebase = null;
       postKaroCreationCtrl.videoFirebaseUrl.value = '';
       postKaroCreationCtrl.mainPostImage.value = '';
-      postKaroCreationCtrl.progress = 0.0.obs;
-      postKaroCreationCtrl.message = "Initializing...".obs;
+      // postKaroCreationCtrl.progress = 0.0.obs;
+      // postKaroCreationCtrl.message = "Initializing...".obs;
       print(" i am in creation again");
-      cardCreationCtrl.selectedPostKaroNotificationList.value = [
+      postKaroCreationCtrl.selectedPostKaroNotificationList.value = [
         "postshare",
         "postkaro",
         "sharepost",
         "politicalposter"
       ];
-      cardCreationCtrl.selectedPostKaroNotificationList.refresh();
+      postKaroCreationCtrl.selectedPostKaroNotificationList.refresh();
     });
 
     super.initState();

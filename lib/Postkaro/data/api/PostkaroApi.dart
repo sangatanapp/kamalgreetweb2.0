@@ -51,4 +51,33 @@ abstract class PostkaroApi {
   @GET('/api/v2/stateList')
   Future<HttpResponse> getStateList(@Header('authorization') String token,
       @Header('language') String language);
+
+  @GET('/api/v2/getWebCardListByTag')
+  Future<HttpResponse> getFilteredCards(
+      @Header('authorization') String token,
+      @Header('language') String language,
+      @Query("tagId") String tagId,
+      @Query("category") String category);
+
+  @GET('/api/v2/getWebCardListByTag')
+  Future<HttpResponse> getFrameCards(
+      @Header('authorization') String token,
+      @Header('language') String language,
+      @Query("tagId") String tagId,
+      @Query("category") String category);
+
+  @GET('/api/v2/getWebCardListByTag')
+  Future<HttpResponse> getCards(@Header('authorization') String token,
+      @Header('language') String language);
+
+  @GET('/api/v2/getLanguageList')
+  Future<HttpResponse> getLanguageList(@Header('authorization') String token,
+      @Header('language') String language);
+
+  @DELETE('/api/v2/deleteCard/{id}')
+  Future<HttpResponse> deleteCard(@Header('authorization') String token,
+      @Path('id') int id, @Header('language') String language);
+  @POST('/api/v2/pinePost')
+  Future<HttpResponse> pinPost(
+      @Header('authorization') String token, @Body() Map<String, dynamic> data);
 }

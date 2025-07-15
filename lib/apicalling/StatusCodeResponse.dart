@@ -7,7 +7,6 @@ import 'package:kamal_greet_web_2/main.dart';
 
 void handleApiStatus(int statusCode) {
   switch (statusCode) {
-
     case 401:
       EasyLoading.showError("Session timeout or Token expired");
       Get.offAll(const LoginPage());

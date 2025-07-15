@@ -130,10 +130,10 @@ Widget subCategorySelector(BuildContext context) {
                     postKaroCreationCtrl.selectedPartyNameList.refresh();
                     postKaroCreationCtrl.partyIdList.refresh();
                     postKaroCreationCtrl.partyIdList.value = [];
-                    postKaroCreationCtrl.finalPartyLogo.value = "";
-                    postKaroCreationCtrl.selectedPartyLogo.value = -1;
-                    postKaroCreationCtrl.finalPartyName.value = "";
-                    postKaroCreationCtrl.selectedPartyName.value = "";
+                    // postKaroCreationCtrl.finalPartyLogo.value = "";
+                    // postKaroCreationCtrl.selectedPartyLogo.value = -1;
+                    // postKaroCreationCtrl.finalPartyName.value = "";
+                    // postKaroCreationCtrl.selectedPartyName.value = "";
                   }
                   subCategoryCtrl.removeTag(
                       tag,

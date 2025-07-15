@@ -56,7 +56,9 @@ class DashboardScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 appCardsWidget(
-                    onTap: () {},
+                    onTap: () {
+                      context.go('/postkaro/dashboard');
+                    },
                     title: "Post Karo",
                     imageString: "assets/images/postKaroLogo.png"),
                 appCardsWidget(
@@ -68,7 +70,6 @@ class DashboardScreen extends StatelessWidget {
                 appCardsWidget(
                     onTap: () {
                       sanatanDashboardCtrl.isSanatan = true;
-
                       context.go("/sanatan/dashboard");
                     },
                     title: "Sanatan",

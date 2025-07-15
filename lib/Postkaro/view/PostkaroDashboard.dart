@@ -5,16 +5,16 @@ import 'package:kamal_greet_web_2/Postkaro/viewmodel/PostKaroCreationViewModel.d
 import 'package:kamal_greet_web_2/Postkaro/viewmodel/PostKaroDashboardViewModel.dart';
 import 'package:kamal_greet_web_2/Postkaro/viewmodel/SubCategoryViewModel.dart';
 import 'package:kamal_greet_web_2/Postkaro/widgets/PostkaroDrawer.dart';
-import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityWidget.dart';
 import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
 import 'package:kamal_greet_web_2/Utils/values/AppConstants.dart';
+import 'package:kamal_greet_web_2/Utils/widgets/CardListBuilder.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/CardListMandatories.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicButton.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/DynamicTextfield.dart';
+import 'package:kamal_greet_web_2/Utils/widgets/status.dart';
 import 'package:kamal_greet_web_2/login/view/LoginPage.dart';
-import 'package:shimmer/shimmer.dart';
 
 final SubCategoryViewModel subCategoryCtrl = Get.put(SubCategoryViewModel());
 final PostKaroDashboardViewModel postKaroDashboardCtrl =
@@ -35,6 +35,12 @@ class _PostkaroDashboardState extends State<PostkaroDashboard> {
   double sideButtonsRadius = 100;
   double sideButtonsTextSize = 16;
   FontWeight sideButtonWieght = FontWeight.w500;
+
+  @override
+  void initState() {
+    postKaroDashboardCtrl.getCard('hi', forFilter: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,68 +93,67 @@ class _PostkaroDashboardState extends State<PostkaroDashboard> {
                                     height: isMobile ? 26 : 46,
                                     textSize:
                                         isMobile ? 8 : sideButtonsTextSize,
-                                    onTap: () async {
-                                      await GreetStorage.setTitle('');
-                                      await GreetStorage.setColor('');
-                                      await GreetStorage.setEndDate('');
-                                      await GreetStorage.setShape('');
-                                      await GreetStorage.setStartDate('');
-                                      await GreetStorage.setSharingContent('');
-                                      await GreetStorage.setOption('');
-                                      await GreetStorage.setPhoto('');
-
-                                      postKaroCreationCtrl.isEdited.value =
-                                          false;
-                                      postKaroCreationCtrl.startDate.value
-                                          .clear();
-                                      postKaroCreationCtrl.endDate.value
-                                          .clear();
-                                      postKaroCreationCtrl.titleController.value
-                                          .clear();
-                                      postKaroCreationCtrl
-                                          .subCategoryCtrl.tagMapping.value
-                                          .clear();
-                                      postKaroCreationCtrl.subCategoryCtrl
-                                          .fieldNameMapping.value
-                                          .clear();
-                                      postKaroCreationCtrl.sharingContent.value
-                                          .clear();
-                                      postKaroCreationCtrl.mainPostImage.value =
-                                          '';
-                                      subCategoryCtrl.idTag.value.clear();
-                                      postKaroCreationCtrl
-                                          .finalNamePlate.value = '';
-                                      postKaroCreationCtrl
-                                          .finalBackground.value = '';
-                                      postKaroCreationCtrl
-                                          .finalPartyLogo.value = '';
-                                      postKaroCreationCtrl
-                                          .finalPartyName.value = '';
-                                      postKaroCreationCtrl
-                                          .selectedNamePlate.value = -1;
-                                      postKaroCreationCtrl.notifyUsers.value =
-                                          false;
-                                      postKaroCreationCtrl.notifyUsers
-                                          .refresh();
-                                      postKaroCreationCtrl.selectedAlignment
-                                          .value = 'bottomLeft';
-                                      postKaroCreationCtrl
-                                          .selectedWishesPosition
-                                          .value = 'topLeft';
-                                      postKaroCreationCtrl.selectedShape.value =
-                                          'circle';
-                                      postKaroCreationCtrl.colorController.value
-                                          .text = '0xFF000000';
-                                      await GreetStorage.setId("");
-
-                                      /// NAVIGATING TO CREATION SCREEN
-                                      ///BELOW IS THE OLD CREATION SCREEN
-                                      // Get.to(CreatePostScreen(
-                                      //   id: '',
-                                      // ));
-                                      /// NEW CREATION SCREEN
-                                      Get.to(const CreationScreen(id: ''));
-                                    },
+                                    // onTap: () async {
+                                    //   await GreetStorage.setTitle('');
+                                    //   await GreetStorage.setColor('');
+                                    //   await GreetStorage.setEndDate('');
+                                    //   await GreetStorage.setShape('');
+                                    //   await GreetStorage.setStartDate('');
+                                    //   await GreetStorage.setSharingContent('');
+                                    //   await GreetStorage.setOption('');
+                                    //   await GreetStorage.setPhoto('');
+                                    //   postKaroCreationCtrl.isEdited.value =
+                                    //       false;
+                                    //   postKaroCreationCtrl.startDate.value
+                                    //       .clear();
+                                    //   postKaroCreationCtrl.endDate.value
+                                    //       .clear();
+                                    //   postKaroCreationCtrl.titleController.value
+                                    //       .clear();
+                                    //   postKaroCreationCtrl
+                                    //       .subCategoryCtrl.tagMapping.value
+                                    //       .clear();
+                                    //   postKaroCreationCtrl.subCategoryCtrl
+                                    //       .fieldNameMapping.value
+                                    //       .clear();
+                                    //   postKaroCreationCtrl.sharingContent.value
+                                    //       .clear();
+                                    //   postKaroCreationCtrl.mainPostImage.value =
+                                    //       '';
+                                    //   subCategoryCtrl.idTag.value.clear();
+                                    //   postKaroCreationCtrl
+                                    //       .finalNamePlate.value = '';
+                                    //   postKaroCreationCtrl
+                                    //       .finalBackground.value = '';
+                                    //   postKaroCreationCtrl
+                                    //       .finalPartyLogo.value = '';
+                                    //   postKaroCreationCtrl
+                                    //       .finalPartyName.value = '';
+                                    //   postKaroCreationCtrl
+                                    //       .selectedNamePlate.value = -1;
+                                    //   postKaroCreationCtrl.notifyUsers.value =
+                                    //       false;
+                                    //   postKaroCreationCtrl.notifyUsers
+                                    //       .refresh();
+                                    //   postKaroCreationCtrl.selectedAlignment
+                                    //       .value = 'bottomLeft';
+                                    //   postKaroCreationCtrl
+                                    //       .selectedWishesPosition
+                                    //       .value = 'topLeft';
+                                    //   postKaroCreationCtrl.selectedShape.value =
+                                    //       'circle';
+                                    //   postKaroCreationCtrl.colorController.value
+                                    //       .text = '0xFF000000';
+                                    //   await GreetStorage.setId("");
+                                    //
+                                    //   /// NAVIGATING TO CREATION SCREEN
+                                    //   ///BELOW IS THE OLD CREATION SCREEN
+                                    //   // Get.to(CreatePostScreen(
+                                    //   //   id: '',
+                                    //   // ));
+                                    //   /// NEW CREATION SCREEN
+                                    //   Get.to(const CreationScreen(id: ''));
+                                    // },
                                   ),
                                   SizedBox(
                                       height: isMobile ? 5 : sidebarPadding),
@@ -180,15 +185,18 @@ class _PostkaroDashboardState extends State<PostkaroDashboard> {
                                     textSize:
                                         isMobile ? 8 : sideButtonsTextSize,
                                     onTap: () {
-                                      dashCtr.setStateByPartyStatus(
-                                          Status.INITIAL);
-                                      dashCtr.getWebPartyList();
-                                      dashCtr.stateByPartyIdList = [];
-                                      dashCtr.parentPartyName.value = '';
-                                      dashCtr.parentPartyId.value = 0;
-                                      dashCtr.parentPartyLogo.value = '';
-                                      dashCtr.isGuruVaniDrawer.value = false;
-                                      dashCtr.isGuruVaniDrawer.refresh();
+                                      postKaroDashboardCtrl
+                                          .setStateByPartyStatus(
+                                              Status.INITIAL);
+                                      postKaroDashboardCtrl.getWebPartyList();
+                                      postKaroDashboardCtrl.stateByPartyIdList =
+                                          [];
+                                      postKaroDashboardCtrl
+                                          .parentPartyName.value = '';
+                                      postKaroDashboardCtrl
+                                          .parentPartyId.value = 0;
+                                      // postKaroDashboardCtrl
+                                      //     .parentPartyLogo.value = '';
                                       _scaffoldKey.currentState?.openDrawer();
                                     },
                                   ),
@@ -201,235 +209,194 @@ class _PostkaroDashboardState extends State<PostkaroDashboard> {
                         ),
 
                         /// LIST OF POSTS and BUTTONS
-                        // Expanded(
-                        //   child: Column(
-                        //     // crossAxisAlignment: CrossAxisAlignment.end,
-                        //     mainAxisAlignment: MainAxisAlignment.start,
-                        //     children: [
-                        //       const SizedBox(height: 20),
-                        //
-                        //       /// TITLE & DELETE ALL BUTTON
-                        //       Visibility(
-                        //         visible: false,
-                        //         child: SizedBox(
-                        //           height:
-                        //               MediaQuery.of(context).size.height * 0.1,
-                        //           child: Row(
-                        //             mainAxisAlignment:
-                        //                 MainAxisAlignment.spaceBetween,
-                        //             children: [
-                        //               title('createdGreetingList'.tr, isMobile),
-                        //               Obx(() {
-                        //                 log('OBX DELETE LIST=> ${dashCtr.deleteAllList.length}');
-                        //
-                        //                 if (dashCtr.rxDeleteAllStatus.value ==
-                        //                     DeleteAllStatus.REFRESH) {}
-                        //                 return Visibility(
-                        //                   visible:
-                        //                       dashCtr.deleteAllList.length > 0,
-                        //                   child: Padding(
-                        //                     padding: const EdgeInsets.only(
-                        //                         right: 20),
-                        //                     child: DynamicButton(
-                        //                       backgroundColor:
-                        //                           Colors.red.shade900,
-                        //                       text: 'deleteAll'.tr,
-                        //                       width: 100,
-                        //                       height: MediaQuery.of(context)
-                        //                               .size
-                        //                               .height *
-                        //                           0.07,
-                        //                       textSize: 14,
-                        //                       radius: 6,
-                        //                       onTap: () {
-                        //                         log('DELETE LIST=> ${dashCtr.deleteAllList.length}');
-                        //                       },
-                        //                     ),
-                        //                   ),
-                        //                 );
-                        //               })
-                        //             ],
-                        //           ),
-                        //         ),
-                        //       ),
-                        //
-                        //       /// LANGUAGE
-                        //
-                        //       Padding(
-                        //         padding: const EdgeInsets.only(right: 80),
-                        //         child: Row(
-                        //           crossAxisAlignment: CrossAxisAlignment.start,
-                        //           mainAxisAlignment: MainAxisAlignment.end,
-                        //           children: [
-                        //             SizedBox(
-                        //                 width:
-                        //                     MediaQuery.of(context).size.width *
-                        //                         0.2,
-                        //                 child:
-                        //                     categorySelector(context, false)),
-                        //             SizedBox(
-                        //               width: 5,
-                        //             ),
-                        //             Padding(
-                        //               padding: const EdgeInsets.only(right: 10),
-                        //               child: SizedBox(
-                        //                 width:
-                        //                     MediaQuery.of(context).size.width *
-                        //                         0.2,
-                        //                 child: Obx(() => DynamicDropdown(
-                        //                     length:
-                        //                         dashCtr.languageNameList.length,
-                        //                     labelText: 'filterByLanguage'.tr,
-                        //                     selectedValue:
-                        //                         dashCtr.languageName.value,
-                        //                     hintText: 'Hindi',
-                        //                     // hintText:
-                        //                     //     'filterByLanguage'.tr,
-                        //                     dropDownList:
-                        //                         dashCtr.languageNameList,
-                        //                     onChange: (value) async {
-                        //                       int selectedIndex = dashCtr
-                        //                           .languageNameList
-                        //                           .indexOf(value);
-                        //
-                        //                       await dashCtr.getTags(dashCtr
-                        //                           .languageList[selectedIndex]
-                        //                           .languageCode);
-                        //                       String? tagId = '';
-                        //                       bool forFilter = false;
-                        //                       try {
-                        //                         if (subCategoryCtrl.categorySelected
-                        //                                 .value ==
-                        //                             'frame') {
-                        //                           forFilter = false;
-                        //                           tagId = '0';
-                        //                         } else {
-                        //                           tagId = dashCtr.tagList[0].id
-                        //                               .toString();
-                        //                           forFilter = true;
-                        //                         }
-                        //                       } catch (e) {}
-                        //                       dashCtr.getCard(
-                        //                           dashCtr
-                        //                               .languageList[
-                        //                                   selectedIndex]
-                        //                               .languageCode,
-                        //                           forFilter: forFilter,
-                        //                           tagId: tagId);
-                        //                       dashCtr.selectedLanguage = dashCtr
-                        //                           .languageList[selectedIndex]
-                        //                           .languageCode;
-                        //
-                        //                       dashCtr.isShowTagFilter.value =
-                        //                           true;
-                        //                       dashCtr.isShowTagFilter.refresh();
-                        //                     })),
-                        //               ),
-                        //             ),
-                        //             const Spacer(),
-                        //             ongoingUpcomingTabs(
-                        //               isMobile: isMobile,
-                        //               onPress: () {
-                        //                 try {
-                        //                   dashCtr.getCard('hi',
-                        //                       forFilter: false);
-                        //                   dashCtr.scrollController.jumpTo(0);
-                        //                 } catch (e) {}
-                        //
-                        //                 dashCtr.toggleOngoingFilter("ONGOING");
-                        //               },
-                        //               tabName: "ONGOING",
-                        //             ),
-                        //             ongoingUpcomingTabs(
-                        //               isMobile: isMobile,
-                        //               onPress: () {
-                        //                 try {
-                        //                   dashCtr.getUpcomingCard(
-                        //                       dashCtr.selectedLanguage,
-                        //                       forFilter: false);
-                        //                   dashCtr.scrollController.jumpTo(0);
-                        //                 } catch (e) {}
-                        //                 dashCtr.toggleOngoingFilter("UPCOMING");
-                        //               },
-                        //               tabName: "UPCOMING",
-                        //             )
-                        //           ],
-                        //         ),
-                        //       ),
-                        //       const SizedBox(height: 20),
-                        //       Align(
-                        //         alignment: Alignment.centerLeft,
-                        //         child: Visibility(
-                        //           visible: (subCategoryCtrl.categorySelected.value ==
-                        //                   'post' &&
-                        //               dashCtr.isShowTagFilter.value),
-                        //           child: Padding(
-                        //             padding: const EdgeInsets.only(bottom: 15),
-                        //             child: creationSubTitle(
-                        //                 "Select Tag To filter",
-                        //                 SizedBox(
-                        //                   height: 30,
-                        //                   width: MediaQuery.of(context)
-                        //                           .size
-                        //                           .width *
-                        //                       0.6,
-                        //                   child: ListView.separated(
-                        //                     separatorBuilder: (context, index) {
-                        //                       return const SizedBox(width: 15);
-                        //                     },
-                        //                     scrollDirection: Axis.horizontal,
-                        //                     shrinkWrap: true,
-                        //                     itemCount: dashCtr.tagList.length,
-                        //                     itemBuilder: (context, index) {
-                        //                       return buildTagsOption(
-                        //                           dashCtr
-                        //                               .tagList[index].tagName,
-                        //                           index);
-                        //                     },
-                        //                   ),
-                        //                 )),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //
-                        //       /// LIST OF POSTS
-                        //       Obx(() {
-                        //         switch (dashCtr.rxRequestStatus.value) {
-                        //           case Status.INITIAL:
-                        //             return const SizedBox.shrink();
-                        //           case Status.COMPLETED:
-                        //             return Flexible(
-                        //               child: programListBuilder(isMobile),
-                        //             );
-                        //           case Status.LOADING:
-                        //             return Flexible(child: shimmerCards());
-                        //           case Status.ERROR:
-                        //             return Center(
-                        //               child: Column(
-                        //                 mainAxisAlignment:
-                        //                     MainAxisAlignment.center,
-                        //                 children: [
-                        //                   SizedBox(
-                        //                     height: 200,
-                        //                     width: 200,
-                        //                     child: Image.asset(
-                        //                         'assets/images/error.png',
-                        //                         width: 200,
-                        //                         height: 200,
-                        //                         fit: BoxFit.fill),
-                        //                   ),
-                        //                   const SizedBox(
-                        //                     height: 10,
-                        //                   ),
-                        //                   title('error'.tr, isMobile),
-                        //                 ],
-                        //               ),
-                        //             );
-                        //         }
-                        //       }),
-                        //     ],
-                        //   ),
-                        // ),
+                        Expanded(
+                          child: Column(
+                            // crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 20),
+
+                              /// LANGUAGE
+
+                              // Padding(
+                              //   padding: const EdgeInsets.only(right: 80),
+                              //   child: Row(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     mainAxisAlignment: MainAxisAlignment.end,
+                              //     children: [
+                              //       SizedBox(
+                              //           width:
+                              //               MediaQuery.of(context).size.width *
+                              //                   0.2,
+                              //           child:
+                              //               categorySelector(context, false)),
+                              //       SizedBox(
+                              //         width: 5,
+                              //       ),
+                              //       Padding(
+                              //         padding: const EdgeInsets.only(right: 10),
+                              //         child: SizedBox(
+                              //           width:
+                              //               MediaQuery.of(context).size.width *
+                              //                   0.2,
+                              //           child: Obx(() => DynamicDropdown(
+                              //               length:
+                              //                   dashCtr.languageNameList.length,
+                              //               labelText: 'filterByLanguage'.tr,
+                              //               selectedValue:
+                              //                   dashCtr.languageName.value,
+                              //               hintText: 'Hindi',
+                              //               // hintText:
+                              //               //     'filterByLanguage'.tr,
+                              //               dropDownList:
+                              //                   dashCtr.languageNameList,
+                              //               onChange: (value) async {
+                              //                 int selectedIndex = dashCtr
+                              //                     .languageNameList
+                              //                     .indexOf(value);
+                              //
+                              //                 await dashCtr.getTags(dashCtr
+                              //                     .languageList[selectedIndex]
+                              //                     .languageCode);
+                              //                 String? tagId = '';
+                              //                 bool forFilter = false;
+                              //                 try {
+                              //                   if (subCategoryCtrl.categorySelected
+                              //                           .value ==
+                              //                       'frame') {
+                              //                     forFilter = false;
+                              //                     tagId = '0';
+                              //                   } else {
+                              //                     tagId = dashCtr.tagList[0].id
+                              //                         .toString();
+                              //                     forFilter = true;
+                              //                   }
+                              //                 } catch (e) {}
+                              //                 dashCtr.getCard(
+                              //                     dashCtr
+                              //                         .languageList[
+                              //                             selectedIndex]
+                              //                         .languageCode,
+                              //                     forFilter: forFilter,
+                              //                     tagId: tagId);
+                              //                 dashCtr.selectedLanguage = dashCtr
+                              //                     .languageList[selectedIndex]
+                              //                     .languageCode;
+                              //
+                              //                 dashCtr.isShowTagFilter.value =
+                              //                     true;
+                              //                 dashCtr.isShowTagFilter.refresh();
+                              //               })),
+                              //         ),
+                              //       ),
+                              //       const Spacer(),
+                              //       ongoingUpcomingTabs(
+                              //         isMobile: isMobile,
+                              //         onPress: () {
+                              //           try {
+                              //             dashCtr.getCard('hi',
+                              //                 forFilter: false);
+                              //             dashCtr.scrollController.jumpTo(0);
+                              //           } catch (e) {}
+                              //
+                              //           dashCtr.toggleOngoingFilter("ONGOING");
+                              //         },
+                              //         tabName: "ONGOING",
+                              //       ),
+                              //       ongoingUpcomingTabs(
+                              //         isMobile: isMobile,
+                              //         onPress: () {
+                              //           try {
+                              //             dashCtr.getUpcomingCard(
+                              //                 dashCtr.selectedLanguage,
+                              //                 forFilter: false);
+                              //             dashCtr.scrollController.jumpTo(0);
+                              //           } catch (e) {}
+                              //           dashCtr.toggleOngoingFilter("UPCOMING");
+                              //         },
+                              //         tabName: "UPCOMING",
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 20),
+                              // Align(
+                              //   alignment: Alignment.centerLeft,
+                              //   child: Visibility(
+                              //     visible: (subCategoryCtrl.categorySelected.value ==
+                              //             'post' &&
+                              //         dashCtr.isShowTagFilter.value),
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.only(bottom: 15),
+                              //       child: creationSubTitle(
+                              //           "Select Tag To filter",
+                              //           SizedBox(
+                              //             height: 30,
+                              //             width: MediaQuery.of(context)
+                              //                     .size
+                              //                     .width *
+                              //                 0.6,
+                              //             child: ListView.separated(
+                              //               separatorBuilder: (context, index) {
+                              //                 return const SizedBox(width: 15);
+                              //               },
+                              //               scrollDirection: Axis.horizontal,
+                              //               shrinkWrap: true,
+                              //               itemCount: dashCtr.tagList.length,
+                              //               itemBuilder: (context, index) {
+                              //                 return buildTagsOption(
+                              //                     dashCtr
+                              //                         .tagList[index].tagName,
+                              //                     index);
+                              //               },
+                              //             ),
+                              //           )),
+                              //     ),
+                              //   ),
+                              // ),
+
+                              /// LIST OF POSTS
+                              Obx(() {
+                                switch (postKaroDashboardCtrl
+                                    .rxRequestStatus.value) {
+                                  case Status.INITIAL:
+                                    return const SizedBox.shrink();
+                                  case Status.COMPLETED:
+                                    return Flexible(
+                                      child: programListBuilder(isMobile,
+                                          filteredList: postKaroDashboardCtrl
+                                                  .listCards?.value ??
+                                              []),
+                                    );
+                                  case Status.LOADING:
+                                    return Flexible(child: shimmerCards());
+                                  case Status.ERROR:
+                                    return Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 200,
+                                            width: 200,
+                                            child: Image.asset(
+                                                'assets/images/error.png',
+                                                width: 200,
+                                                height: 200,
+                                                fit: BoxFit.fill),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          title('error'.tr, isMobile),
+                                        ],
+                                      ),
+                                    );
+                                }
+                              }),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -521,7 +488,7 @@ class _PostkaroDashboardState extends State<PostkaroDashboard> {
                                       for (int index = 0;
                                           index <
                                               subCategoryCtrl
-                                                  .viewtagList!.length;
+                                                  .viewtagList.length;
                                           index += 1)
                                         Column(
                                           key: Key('$index'),
@@ -552,7 +519,7 @@ class _PostkaroDashboardState extends State<PostkaroDashboard> {
                                                       Text(
                                                         subCategoryCtrl
                                                             .tagList![index]!
-                                                            .tagName!,
+                                                            .tagName,
                                                         style:
                                                             GoogleFonts.poppins(
                                                           fontSize: AppConstants
@@ -577,18 +544,18 @@ class _PostkaroDashboardState extends State<PostkaroDashboard> {
                                                                     tagName: subCategoryCtrl
                                                                         .tagList![
                                                                             index]!
-                                                                        .tagName!
+                                                                        .tagName
                                                                         .toString(),
                                                                     tagLogo: subCategoryCtrl
                                                                         .tagList![
                                                                             index]!
-                                                                        .tagImageurl!
+                                                                        .tagImageurl
                                                                         .toString());
                                                                 showTagDialogue(
                                                                     subCategoryCtrl
                                                                         .tagList![
                                                                             index]!
-                                                                        .id!
+                                                                        .id
                                                                         .toString());
                                                               },
                                                             ),
@@ -685,137 +652,6 @@ class _PostkaroDashboardState extends State<PostkaroDashboard> {
                                   subCategoryCtrl.tagNameController.value,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Obx(() {
-                            if (subCategoryCtrl.isLoadingTag.value) {
-                              return Shimmer.fromColors(
-                                baseColor: Colors.grey.withOpacity(0.2),
-                                highlightColor: Colors.grey.withOpacity(0.1),
-                                child: Container(
-                                  height: 80,
-                                  width: 80,
-                                  decoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xFFFFA5A8),
-                                        Color(0xFFFFE3F6),
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    ),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: SizedBox(
-                                      height: 80,
-                                      width: 80,
-                                      child: Text('jhghjkl'),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            } else {
-                              return GestureDetector(
-                                onTap: () {
-                                  subCategoryCtrl.pickTagImageFromGallery();
-                                },
-                                child: Container(
-                                  color: Colors.white,
-                                  height: 80,
-                                  width: 80,
-                                  child: subCategoryCtrl.tagPhotos.value == ""
-                                      ? DottedBorder(
-                                          borderType: BorderType.RRect,
-                                          radius: const Radius.circular(20),
-                                          color: Colors.grey,
-                                          strokeWidth: 1,
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                const Icon(
-                                                  Icons.add_a_photo,
-                                                  color: Colors.black,
-                                                  size: 30,
-                                                ),
-                                                const SizedBox(height: 5),
-                                                Text(
-                                                  'uploadIcon'.tr,
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      : Stack(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(20)),
-                                              child: Image.network(
-                                                subCategoryCtrl.tagPhotos.value,
-                                                height: 80,
-                                                width: 80,
-                                                fit: BoxFit.cover,
-                                                errorBuilder: (context, error,
-                                                    stackTrace) {
-                                                  return Center(
-                                                    child: Icon(
-                                                      Icons.image,
-                                                      size: 75,
-                                                      color: AppColors.teal50,
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                            Positioned(
-                                              top: -8,
-                                              right: -8,
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  subCategoryCtrl
-                                                      .removeTagImage();
-                                                },
-                                                icon: Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      width: 0.5,
-                                                      color: AppColors.teal50,
-                                                    ),
-                                                    shape: BoxShape.circle,
-                                                    color:
-                                                        const Color(0xFFDC7AA9),
-                                                  ),
-                                                  child: Center(
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      color:
-                                                          AppColors.whiteCard,
-                                                      size: 10,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                ),
-                              );
-                            }
-                          }),
                           const SizedBox(
                             height: 10,
                           ),

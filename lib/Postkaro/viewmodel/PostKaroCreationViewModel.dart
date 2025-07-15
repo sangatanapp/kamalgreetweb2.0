@@ -44,6 +44,12 @@ class PostKaroCreationViewModel extends GetxController {
     selectedWishesPosition.value = option;
   }
 
+  RxString selectedPartyLogoOption = 'topLeft'.obs;
+
+  void selectPartyLogoOption(String option) {
+    selectedPartyLogoOption.value = option;
+  }
+
   ///---------*** Notification ***---------///
   RxBool notifyUsers = false.obs;
 
@@ -56,6 +62,9 @@ class PostKaroCreationViewModel extends GetxController {
     "sharepost",
     "politicalposter"
   ];
+
+  RxString cropRatio = "".obs;
+  RxString videoRatio = '1'.obs;
 
   ///---------*** PARTY LIST ***---------///
 
@@ -115,12 +124,6 @@ class PostKaroCreationViewModel extends GetxController {
     /// VALIDATING TITLE
     else if (titleController.value.text.isEmpty) {
       EasyLoading.showError('Please Add Title');
-    }
-
-    /// VALIDATING LANGUAGE
-    else if (dashCtr.languageName.value == '' &&
-        whichAppSelected.value != "quran") {
-      EasyLoading.showError('Select Language');
     }
 
     /// VALIDATING CATEGORY
@@ -209,17 +212,17 @@ class PostKaroCreationViewModel extends GetxController {
       "party_logo": "",
       "partylogo_position": partyLogo,
       "notify": notifyUsers.value,
-      "start_date": startDateString.value,
-      "start_time": startTimeString.value,
-      "end_date": endDateString.value,
-      "end_time": endTimeString.value,
+      // "start_date": startDateString.value,
+      // "start_time": startTimeString.value,
+      // "end_date": endDateString.value,
+      // "end_time": endTimeString.value,
       "tag_list": subCategoryCtrl.idTag.value,
       "tagname_list": tagNames,
       "category_list": categoryList,
       "wishes_position": selectedWishesPosition.value,
       // "state_id": dashCtr.stateId.toString(),
       "state_id": "0",
-      "post_language": dashCtr.languageShortName.value,
+      "post_language": postKaroDashboardCtrl.languageShortName.value,
       "is_frame": isFrame.value,
       "is_wishes": isWishes.value,
       "is_political": isPolitical.value,
@@ -235,42 +238,48 @@ class PostKaroCreationViewModel extends GetxController {
       "app_name": selectedPostKaroNotificationList
     };
 
-    if (subCategoryCtrl.selectedCategoryList.contains('video')) {
-      if (videoPathForFirebase != null) {
-        await creationVideoUploadCtrl.videoToFirebase(videoPathForFirebase!);
-        String thumbnailUrl = await creationVideoUploadCtrl
-            .thumbnailToFirebase(mainPostImage.value);
-
-        data['video_url'] = videoFirebaseUrl.value;
-        // data['videoRatio'] = videoRatio.value;
-        data['post_url'] = thumbnailUrl;
-        data['post_type'] = "video";
-      } else {
-        EasyLoading.showError('Select Video First');
-      }
-    } else {
-      data['post_type'] = "image";
-      data['post_url'] = mainPostImage.value;
-    }
+    // if (subCategoryCtrl.selectedCategoryList.contains('video')) {
+    //   if (videoPathForFirebase != null) {
+    //     await creationVideoUploadCtrl.videoToFirebase(videoPathForFirebase!);
+    //     String thumbnailUrl = await creationVideoUploadCtrl
+    //         .thumbnailToFirebase(mainPostImage.value);
+    //     data['video_url'] = videoFirebaseUrl.value;
+    //     data['post_url'] = thumbnailUrl;
+    //     data['post_type'] = "video";
+    //   } else {
+    //     EasyLoading.showError('Select Video First');
+    //   }
+    // } else {
+    data['post_type'] = "image";
+    data['post_url'] = mainPostImage.value;
 
     print('DATA=> ${data}');
     final res = subCategoryCtrl.selectedCategoryList.contains('video')
         ? await api.createVideoCard("Bearer ${GreetStorage.getAuthToken()!}",
-            data, dashCtr.languageShortName.value)
+            data, postKaroDashboardCtrl.languageShortName.value)
         : await api.createPost("Bearer ${GreetStorage.getAuthToken()!}", data,
-            dashCtr.languageShortName.value);
-
+            postKaroDashboardCtrl.languageShortName.value);
     if (res.response.statusCode == 200 || res.response.statusCode == 201) {
       EasyLoading.showSuccess("cardAddedSuccessfully".tr);
-      dashCtr.selectedApp.value == 3
-          ? dashCtr.getCard('hi', forFilter: false, from: 'quran')
-          : dashCtr.getCard('hi', forFilter: false);
+      postKaroDashboardCtrl.getCard('hi', forFilter: false);
       Navigator.pop(NavigationService.navigatorKey.currentContext!);
     } else if (res.response.statusCode == 401) {
       handleApiStatus(401);
     } else {
       EasyLoading.showError(
           "${res.response.statusCode} ${res.response.statusMessage}");
+    }
+  }
+
+  bool getPostType() {
+    List<String> postTypeList = subCategoryCtrl.selectedCategoryList.toList();
+    if (postTypeList.isEmpty) {
+      return true;
+    }
+    if (postTypeList.contains('video')) {
+      return false;
+    } else {
+      return true;
     }
   }
 }
