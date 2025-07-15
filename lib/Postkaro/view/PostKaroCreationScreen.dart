@@ -21,16 +21,16 @@ import '../../Utils/values/AppColors.dart';
 import '../../Utils/widgets/DynamicButton.dart';
 import '../../Utils/widgets/DynamicTextfield.dart';
 
-class CreationScreen extends StatefulWidget {
+class PostKaroCreationScreen extends StatefulWidget {
   final String? id;
 
-  const CreationScreen({super.key, this.id});
+  const PostKaroCreationScreen({super.key, this.id});
 
   @override
-  State<CreationScreen> createState() => _CreationScreenState();
+  State<PostKaroCreationScreen> createState() => _PostKaroCreationScreenState();
 }
 
-class _CreationScreenState extends State<CreationScreen> {
+class _PostKaroCreationScreenState extends State<PostKaroCreationScreen> {
   @override
   void initState() {
     postKaroCreationCtrl.isLoading.value = false;
@@ -99,7 +99,8 @@ class _CreationScreenState extends State<CreationScreen> {
             return Scaffold(
                 backgroundColor: AppColors.creationScreenBackground,
                 body: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.16),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.16),
                   child: formWidget(context),
                 ));
           } else {
@@ -184,7 +185,7 @@ class _CreationScreenState extends State<CreationScreen> {
                     "title".tr,
                     DynamicTextfield(
                       maxLength: AppConstants.maxtitleLength,
-                      controller: postKaroCreationCtrl.titleController.value,
+                      controller: postKaroCreationCtrl.titleController,
                       height: 55,
                       fillColor: AppColors.whiteCard,
                       hintText: "title".tr,
@@ -198,7 +199,7 @@ class _CreationScreenState extends State<CreationScreen> {
                     DynamicTextfield(
                       maxLength: 150,
                       maxLines: 3,
-                      controller: postKaroCreationCtrl.sharingContent.value,
+                      controller: postKaroCreationCtrl.sharingContent,
                       fillColor: AppColors.whiteCard,
                       hintText: "sharingContent".tr,
                     )),
@@ -243,7 +244,7 @@ class _CreationScreenState extends State<CreationScreen> {
                 formPadding(),
 
                 /// PARTY & STATE
-                partySelector(),
+                partySelector(context: context),
                 formPadding(),
 
                 /// WISHES ALIGNMENT
@@ -266,8 +267,8 @@ class _CreationScreenState extends State<CreationScreen> {
                       height: 100,
                       child: DynamicButton(
                         text: 'cancel'.tr,
-                        height: Get.width * 0.05,
-                        width: Get.width * 0.3,
+                        height: MediaQuery.of(context).size.width * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.3,
                         textSize: 16,
                         radius: 50,
                         textColor: Colors.black,
@@ -282,8 +283,8 @@ class _CreationScreenState extends State<CreationScreen> {
                     /// SUBMIT BUTTON
                     DynamicButton(
                         text: 'creationTitle'.tr,
-                        height: Get.width * 0.05,
-                        width: Get.width * 0.3,
+                        height: MediaQuery.of(context).size.width * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.3,
                         textSize: 16,
                         radius: 50,
                         textColor: Colors.black,

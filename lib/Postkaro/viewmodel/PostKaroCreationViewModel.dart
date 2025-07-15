@@ -16,8 +16,8 @@ class PostKaroCreationViewModel extends GetxController {
 
   final startDate = TextEditingController();
   final endDate = TextEditingController();
-  final titleController = TextEditingController().obs;
-  final sharingContent = TextEditingController().obs;
+  final titleController = TextEditingController();
+  final sharingContent = TextEditingController();
 
   ///---------*** Extras ***---------///
   RxBool isEdited = false.obs;
@@ -77,12 +77,12 @@ class PostKaroCreationViewModel extends GetxController {
   void setPartyLogoStatus(Status value) => partyLogoStatus.value = value;
 
   Future callPartyListApi() async {
+    print(" i am calling party list api");
     setPartyLogoStatus(Status.LOADING);
     try {
       final res = await api.getWebPartyList(
           "Bearer ${GreetStorage.getAuthToken()!}", "hi");
       partyList = [];
-
       if (res.response.statusCode == 200) {
         PartyListModal model = PartyListModal.fromJson(res.data);
         partyList = model.data;

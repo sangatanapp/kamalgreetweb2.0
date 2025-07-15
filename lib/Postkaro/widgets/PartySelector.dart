@@ -5,7 +5,7 @@ import 'package:kamal_greet_web_2/Postkaro/view/PostkaroDashboard.dart';
 import 'package:kamal_greet_web_2/Utils/widgets/SubtitleGenerator.dart';
 import 'MultiplePartySelector.dart';
 
-Widget partySelector() {
+Widget partySelector({required BuildContext context}) {
   return Obx(
     () => Visibility(
       visible: subCategoryCtrl.fieldNameMapping.value.contains('political'),
@@ -22,7 +22,10 @@ Widget partySelector() {
                   child: creationSubTitle(
                       'party'.tr,
                       InkWell(
-                        onTap: () => multiplePartySelector(),
+                        onTap: () {
+                          print("i am on tap");
+                          multiplePartySelector(context: context);
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
@@ -32,16 +35,13 @@ Widget partySelector() {
                           ),
                           height: 50,
                           width: 300,
-                          child: Center(
-                            child: Text("Select Party",
-                                style: TextStyle(color: Colors.black)),
-                          ),
+                          child: const Center(
+                              child: Text("Select Party",
+                                  style: TextStyle(color: Colors.black))),
                         ),
                       ))),
 
-              const SizedBox(
-                width: 20,
-              ),
+              const SizedBox(width: 20),
 
               const Flexible(
                 flex: 1,
@@ -56,7 +56,8 @@ Widget partySelector() {
               return Wrap(
                 spacing: 8.0,
                 runSpacing: 4.0,
-                children: postKaroCreationCtrl.selectedPartyNameList.value.map((tag) {
+                children:
+                    postKaroCreationCtrl.selectedPartyNameList.value.map((tag) {
                   return Chip(
                     labelStyle: TextStyle(color: Colors.blue.shade800),
                     backgroundColor: Colors.orange.shade100,
@@ -68,13 +69,16 @@ Widget partySelector() {
                       int selectedIndex =
                           postKaroCreationCtrl.partyNameList.indexOf(tag);
 
-                      postKaroCreationCtrl.selectedPartyNameList.value.remove(tag);
+                      postKaroCreationCtrl.selectedPartyNameList.value
+                          .remove(tag);
                       postKaroCreationCtrl.partyIdList.value.remove(
-                          postKaroCreationCtrl.partyList[selectedIndex].partyId);
+                          postKaroCreationCtrl
+                              .partyList[selectedIndex].partyId);
 
                       print(
                           "----------> ${postKaroCreationCtrl.selectedPartyNameList.value}");
-                      print("----------> ${postKaroCreationCtrl.partyIdList.value}");
+                      print(
+                          "----------> ${postKaroCreationCtrl.partyIdList.value}");
 
                       postKaroCreationCtrl.selectedPartyNameList.refresh();
                     },

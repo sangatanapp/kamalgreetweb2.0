@@ -523,8 +523,8 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
 
   @override
   Widget build(BuildContext context) {
-    double noHoverWidth = widget.isMobile ? Get.width * 0.01 : Get.width * 0.04;
-    double height = widget.isMobile ? Get.width * 0.01 : Get.width * 0.04;
+    double noHoverWidth = widget.isMobile ? MediaQuery.of(context).size.width * 0.01 : MediaQuery.of(context).size.width * 0.04;
+    double height = widget.isMobile ? MediaQuery.of(context).size.width * 0.01 : MediaQuery.of(context).size.width * 0.04;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

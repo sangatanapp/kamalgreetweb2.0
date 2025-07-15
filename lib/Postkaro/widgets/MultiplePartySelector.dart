@@ -3,11 +3,10 @@ import 'package:get/get.dart';
 import 'package:kamal_greet_web_2/Postkaro/view/PostkaroDashboard.dart';
 import 'package:kamal_greet_web_2/main.dart';
 
-Future multiplePartySelector() {
-  // Sample data
+Future multiplePartySelector({required BuildContext context}) {
   final List<String> items = postKaroCreationCtrl.partyNameList;
   return showDialog(
-    context: NavigationService.navigatorKey.currentContext!,
+    context: context,
     builder: (context) {
       return Padding(
         padding:
@@ -24,8 +23,8 @@ Future multiplePartySelector() {
                       () => CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Text(item),
-                        value:
-                            postKaroCreationCtrl.selectedPartyNameList.contains(item),
+                        value: postKaroCreationCtrl.selectedPartyNameList
+                            .contains(item),
                         onChanged: (value) {
                           if (value == true) {
                             if (item == "Select All") {
@@ -34,35 +33,45 @@ Future multiplePartySelector() {
                                   i++) {
                                 if (i == 0) {
                                   postKaroCreationCtrl.selectedPartyNameList
-                                      .add(postKaroCreationCtrl.partyNameList[i]);
+                                      .add(postKaroCreationCtrl
+                                          .partyNameList[i]);
                                   continue;
                                 }
                                 postKaroCreationCtrl.selectedPartyNameList
                                     .add(postKaroCreationCtrl.partyNameList[i]);
-                                int selectedIndex = postKaroCreationCtrl.partyNameList
-                                    .indexOf(postKaroCreationCtrl.partyNameList[i]);
-                                postKaroCreationCtrl.partyIdList.add(postKaroCreationCtrl
-                                    .partyList[selectedIndex].partyId);
+                                int selectedIndex =
+                                    postKaroCreationCtrl.partyNameList.indexOf(
+                                        postKaroCreationCtrl.partyNameList[i]);
+                                postKaroCreationCtrl.partyIdList.add(
+                                    postKaroCreationCtrl
+                                        .partyList[selectedIndex].partyId);
                               }
                             } else {
-                              postKaroCreationCtrl.selectedPartyNameList.add(item);
-                              int selectedIndex =
-                                  postKaroCreationCtrl.partyNameList.indexOf(item);
+                              postKaroCreationCtrl.selectedPartyNameList
+                                  .add(item);
+                              int selectedIndex = postKaroCreationCtrl
+                                  .partyNameList
+                                  .indexOf(item);
 
-                              postKaroCreationCtrl.partyIdList.add(postKaroCreationCtrl
-                                  .partyList[selectedIndex].partyId);
+                              postKaroCreationCtrl.partyIdList.add(
+                                  postKaroCreationCtrl
+                                      .partyList[selectedIndex].partyId);
                             }
                           } else {
                             if (item == "Select All") {
-                              postKaroCreationCtrl.selectedPartyNameList.value = [];
+                              postKaroCreationCtrl.selectedPartyNameList.value =
+                                  [];
                               postKaroCreationCtrl.partyIdList.value = [];
                             } else {
-                              postKaroCreationCtrl.selectedPartyNameList.remove(item);
-                              int selectedIndex =
-                                  postKaroCreationCtrl.partyNameList.indexOf(item);
+                              postKaroCreationCtrl.selectedPartyNameList
+                                  .remove(item);
+                              int selectedIndex = postKaroCreationCtrl
+                                  .partyNameList
+                                  .indexOf(item);
 
-                              postKaroCreationCtrl.partyIdList.remove(postKaroCreationCtrl
-                                  .partyList[selectedIndex].partyId);
+                              postKaroCreationCtrl.partyIdList.remove(
+                                  postKaroCreationCtrl
+                                      .partyList[selectedIndex].partyId);
                             }
                           }
                           postKaroCreationCtrl.selectedPartyNameList.refresh();

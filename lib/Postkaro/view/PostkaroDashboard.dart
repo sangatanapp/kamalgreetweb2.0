@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kamal_greet_web_2/Postkaro/viewmodel/PostKaroCreationViewModel.dart';
 import 'package:kamal_greet_web_2/Postkaro/viewmodel/PostKaroDashboardViewModel.dart';
 import 'package:kamal_greet_web_2/Postkaro/viewmodel/SubCategoryViewModel.dart';
 import 'package:kamal_greet_web_2/Postkaro/widgets/PostkaroDrawer.dart';
+import 'package:kamal_greet_web_2/Utils/database/GreetStorage.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityController.dart';
 import 'package:kamal_greet_web_2/Utils/internet/ConnectivityWidget.dart';
 import 'package:kamal_greet_web_2/Utils/values/AppColors.dart';
@@ -93,67 +95,60 @@ class _PostkaroDashboardState extends State<PostkaroDashboard> {
                                     height: isMobile ? 26 : 46,
                                     textSize:
                                         isMobile ? 8 : sideButtonsTextSize,
-                                    // onTap: () async {
-                                    //   await GreetStorage.setTitle('');
-                                    //   await GreetStorage.setColor('');
-                                    //   await GreetStorage.setEndDate('');
-                                    //   await GreetStorage.setShape('');
-                                    //   await GreetStorage.setStartDate('');
-                                    //   await GreetStorage.setSharingContent('');
-                                    //   await GreetStorage.setOption('');
-                                    //   await GreetStorage.setPhoto('');
-                                    //   postKaroCreationCtrl.isEdited.value =
-                                    //       false;
-                                    //   postKaroCreationCtrl.startDate.value
-                                    //       .clear();
-                                    //   postKaroCreationCtrl.endDate.value
-                                    //       .clear();
-                                    //   postKaroCreationCtrl.titleController.value
-                                    //       .clear();
-                                    //   postKaroCreationCtrl
-                                    //       .subCategoryCtrl.tagMapping.value
-                                    //       .clear();
-                                    //   postKaroCreationCtrl.subCategoryCtrl
-                                    //       .fieldNameMapping.value
-                                    //       .clear();
-                                    //   postKaroCreationCtrl.sharingContent.value
-                                    //       .clear();
-                                    //   postKaroCreationCtrl.mainPostImage.value =
-                                    //       '';
-                                    //   subCategoryCtrl.idTag.value.clear();
-                                    //   postKaroCreationCtrl
-                                    //       .finalNamePlate.value = '';
-                                    //   postKaroCreationCtrl
-                                    //       .finalBackground.value = '';
-                                    //   postKaroCreationCtrl
-                                    //       .finalPartyLogo.value = '';
-                                    //   postKaroCreationCtrl
-                                    //       .finalPartyName.value = '';
-                                    //   postKaroCreationCtrl
-                                    //       .selectedNamePlate.value = -1;
-                                    //   postKaroCreationCtrl.notifyUsers.value =
-                                    //       false;
-                                    //   postKaroCreationCtrl.notifyUsers
-                                    //       .refresh();
-                                    //   postKaroCreationCtrl.selectedAlignment
-                                    //       .value = 'bottomLeft';
-                                    //   postKaroCreationCtrl
-                                    //       .selectedWishesPosition
-                                    //       .value = 'topLeft';
-                                    //   postKaroCreationCtrl.selectedShape.value =
-                                    //       'circle';
-                                    //   postKaroCreationCtrl.colorController.value
-                                    //       .text = '0xFF000000';
-                                    //   await GreetStorage.setId("");
-                                    //
-                                    //   /// NAVIGATING TO CREATION SCREEN
-                                    //   ///BELOW IS THE OLD CREATION SCREEN
-                                    //   // Get.to(CreatePostScreen(
-                                    //   //   id: '',
-                                    //   // ));
-                                    //   /// NEW CREATION SCREEN
-                                    //   Get.to(const CreationScreen(id: ''));
-                                    // },
+                                    onTap: () async {
+                                      await GreetStorage.setTitle('');
+                                      await GreetStorage.setColor('');
+                                      await GreetStorage.setEndDate('');
+                                      await GreetStorage.setShape('');
+                                      await GreetStorage.setStartDate('');
+                                      await GreetStorage.setSharingContent('');
+                                      await GreetStorage.setOption('');
+                                      await GreetStorage.setPhoto('');
+                                      postKaroCreationCtrl.isEdited.value =
+                                          false;
+                                      postKaroCreationCtrl.startDate.text = "";
+                                      postKaroCreationCtrl.endDate.text = "";
+                                      postKaroCreationCtrl
+                                          .titleController.text = "";
+                                      postKaroCreationCtrl.sharingContent.text =
+                                          "";
+                                      postKaroCreationCtrl.mainPostImage.value =
+                                          '';
+                                      subCategoryCtrl.idTag.value.clear();
+                                      // postKaroCreationCtrl
+                                      //     .subCategoryCtrl.tagMapping.value
+                                      //     .clear();
+                                      // postKaroCreationCtrl.subCategoryCtrl
+                                      //     .fieldNameMapping.value
+                                      //     .clear();
+
+                                      // postKaroCreationCtrl
+                                      //     .finalNamePlate.value = '';
+                                      // postKaroCreationCtrl
+                                      //     .finalBackground.value = '';
+                                      // postKaroCreationCtrl
+                                      //     .finalPartyLogo.value = '';
+                                      // postKaroCreationCtrl
+                                      //     .finalPartyName.value = '';
+                                      // postKaroCreationCtrl
+                                      //     .selectedNamePlate.value = -1;
+                                      postKaroCreationCtrl.notifyUsers.value =
+                                          false;
+                                      postKaroCreationCtrl.notifyUsers
+                                          .refresh();
+                                      postKaroCreationCtrl.selectedAlignment
+                                          .value = 'bottomLeft';
+                                      postKaroCreationCtrl
+                                          .selectedWishesPosition
+                                          .value = 'topLeft';
+                                      postKaroCreationCtrl.selectedShape.value =
+                                          'circle';
+                                      // postKaroCreationCtrl.colorController.value
+                                      //     .text = '0xFF000000';
+                                      await GreetStorage.setId("");
+
+                                      context.go("/postkaro/creation");
+                                    },
                                   ),
                                   SizedBox(
                                       height: isMobile ? 5 : sidebarPadding),
